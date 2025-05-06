@@ -86,7 +86,7 @@
                     <a class="nav-link text-white" href="{{ route('admin.visimisi.index') }}"><i class="bi bi-bullseye"></i> <span>Visi Misi</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#"><i class="bi bi-diagram-3"></i> <span>Struktur Organisasi</span></a>
+                    <a class="nav-link text-white" href="{{ route('admin.strukturorganisasi.index') }}"><i class="bi bi-diagram-3"></i> <span>Struktur Organisasi</span></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#"><i class="bi bi-people"></i> <span>Data Siswa</span></a>

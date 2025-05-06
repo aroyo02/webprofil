@@ -6,6 +6,8 @@ use App\Http\Controllers\Admin\SchoolProfileController;
 use App\Http\Controllers\Admin\VisionController;
 use App\Http\Controllers\Admin\MissionController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\StrukturOrganisasiController;
+
 
 // Landing page (public)
 Route::get('/', function () {
@@ -49,6 +51,11 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::post('/misi/store', [MissionController::class, 'store'])->name('misi.store');
     Route::put('/misi/update/{id}', [MissionController::class, 'update'])->name('misi.update');
     Route::delete('/misi/destroy/{id}', [MissionController::class, 'destroy'])->name('misi.destroy');
+
+    // struktur organisasi
+    Route::get('struktur-organisasi', [StrukturOrganisasiController::class, 'index'])->name('strukturorganisasi.index');
+    Route::post('struktur-organisasi', [StrukturOrganisasiController::class, 'store'])->name('strukturorganisasi.store');
+    Route::delete('struktur-organisasi', [StrukturOrganisasiController::class, 'destroy'])->name('strukturorganisasi.destroy');
 
 });
 

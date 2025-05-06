@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="container-fluid">
+< class="container-fluid">
     <h1 class="mb-4">Dashboard Admin SDN 1 Wirasaba</h1>
 
     <!-- Welcome Text -->
@@ -103,10 +103,41 @@
         <div class="col-md-4 mb-3">
             <div class="p-3 border rounded text-center h-100">
                 <h4>Struktur Organisasi</h4>
-                <img src="{{ asset('images/struktur-dummy.png') }}" alt="Struktur Organisasi" class="img-fluid mt-2">
+
+                @if($struktur)
+                    <img src="{{ asset('storage/' . $struktur->image) }}" alt="Struktur Organisasi" class="img-fluid mt-2" style="max-height: 200px;">
+
+                    <button class="btn btn-sm btn-info mt-2" data-bs-toggle="modal" data-bs-target="#strukturModal">Lihat Gambar</button>
+
+                    <form action="{{ route('admin.strukturorganisasi.destroy') }}" method="POST" class="d-inline-block mt-2" onsubmit="return confirm('Yakin ingin menghapus gambar ini?')">
+                        @csrf
+                        @method('DELETE')
+                        <button class="btn btn-sm btn-danger">Hapus</button>
+                    </form>
+                @else
+                    <p class="text-muted mt-2">Belum ada gambar diunggah.</p>
+                    <a href="{{ route('admin.strukturorganisasi.index') }}" class="btn btn-sm btn-success mt-2">Tambah Gambar</a>
+                @endif
             </div>
         </div>
     </div>
+
+    <!-- Modal Preview Gambar Struktur Organisasi -->
+    @if($struktur)
+    <div class="modal fade" id="strukturModal" tabindex="-1" aria-labelledby="strukturModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="strukturModalLabel">Preview Struktur Organisasi</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+          </div>
+          <div class="modal-body text-center">
+            <img src="{{ asset('storage/' . $struktur->image) }}" alt="Struktur Organisasi" class="img-fluid">
+          </div>
+        </div>
+      </div>
+    </div>
+    @endif
 
     <!-- Table Berita Terbaru -->
     <div class="card mb-4">
