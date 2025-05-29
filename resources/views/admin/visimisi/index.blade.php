@@ -2,6 +2,17 @@
 
 @section('content')
 <div class="container mt-4">
+     {{-- Notifikasi Error Validasi --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <h2>Visi</h2>
     <form id="formVisi" action="{{ $vision ? route('admin.visi.update', $vision->id) : route('admin.visi.store') }}" method="POST">
         @csrf
@@ -41,11 +52,7 @@
 
     <div class="clearfix"></div>
 
-    @if(session('status'))
-        <div class="alert alert-success mt-3">
-            {{ session('status') }}
-        </div>
-    @endif
+    
 </div>
 @endsection
 

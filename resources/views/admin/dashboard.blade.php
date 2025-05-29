@@ -1,8 +1,6 @@
 @extends('layouts.admin')
 
 @section('content')
-
-< class="container-fluid">
     <h1 class="mb-4">Dashboard Admin SDN 1 Wirasaba</h1>
 
     <!-- Welcome Text -->

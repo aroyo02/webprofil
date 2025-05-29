@@ -95,13 +95,64 @@
                     <a class="nav-link text-white" href="#"><i class="bi bi-person-badge"></i> <span>Data Guru</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#"><i class="bi bi-trophy"></i> <span>Ekstrakurikuler</span></a>
+                    <a class="nav-link text-white" data-bs-toggle="collapse" href="#submenuEkskul" role="button" aria-expanded="false" aria-controls="submenuEkskul">
+                        <i class="bi bi-trophy"></i> <span>Ekstrakurikuler</span>
+                    </a>
+                    <div class="collapse" id="submenuEkskul">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{route('admin.ekstrakurikuler.create')}}">
+                                    <i class="bi bi-plus-circle"></i> Tambah Data
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{route('admin.ekstrakurikuler.index')}}">
+                                    <i class="bi bi-card-list"></i> Daftar Ekskul
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" data-bs-toggle="collapse" href="#submenuSarana" role="button" aria-expanded="false" aria-controls="submenuSarana">
+                        <i class="bi bi-box-seam"></i> <span>Sarana Prasarana</span>
+                    </a>
+                    <div class="collapse" id="submenuSarana">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('admin.saranaprasarana.create') }}">
+                                    <i class="bi bi-plus-circle"></i> Tambah Data
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('admin.saranaprasarana.index') }}">
+                                    <i class="bi bi-card-list"></i> Daftar Sarana Prasarana
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" href="#"><i class="bi bi-newspaper"></i> <span>Berita</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#"><i class="bi bi-images"></i> <span>Galeri</span></a>
+                    <a class="nav-link text-white" data-bs-toggle="collapse" href="#submenuGaleri" role="button" aria-expanded="false" aria-controls="submenuGaleri">
+                        <i class="bi bi-box-seam"></i> <span>Galeri</span>
+                    </a>
+                    <div class="collapse" id="submenuGaleri">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{route('admin.galeri.create')}}">
+                                    <i class="bi bi-plus-circle"></i> Tambah Data
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{route('admin.galeri.index')}}">
+                                    <i class="bi bi-card-list"></i> Daftar Galeri
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>
