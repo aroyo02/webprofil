@@ -1,4 +1,4 @@
-@extends('layouts.admin') 
+@extends('admin.layout.navbar')
 
 @section('content')
 <div class="container mt-4">
@@ -52,6 +52,30 @@
             e.preventDefault(); // Cegah form submit
             alert('Harap isi profil sekolah terlebih dahulu.');
         }
+    });
+</script>
+
+{{-- Inisialisasi Summernote --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.css" rel="stylesheet">
+
+<script>
+    $(document).ready(function() {
+        $('#content').summernote({
+            height: 300,
+            placeholder: 'Tulis isi profil sekolah di sini...',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link',]],
+                ['view', ['fullscreen', 'codeview']]
+            ]
+        });
     });
 </script>
 @endsection

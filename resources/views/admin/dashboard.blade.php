@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layout.navbar')
 
 @section('content')
     <h1 class="mb-4">Dashboard Admin SDN 1 Wirasaba</h1>
@@ -14,7 +14,7 @@
             <div class="card text-white bg-success">
                 <div class="card-body">
                     <h5 class="card-title">Total Siswa</h5>
-                    <p class="card-text fs-3">150</p>
+                    <p class="card-text fs-3 count-up" data-target="{{ $jumlahSiswa }}">0</p>
                 </div>
             </div>
         </div>
@@ -23,7 +23,7 @@
             <div class="card text-white bg-info">
                 <div class="card-body">
                     <h5 class="card-title">Total Guru</h5>
-                    <p class="card-text fs-3">20</p>
+                    <p class="card-text fs-3  count-up"data-target="{{ $jumlahGuru }}">0</p>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@
             <div class="card text-white bg-warning">
                 <div class="card-body">
                     <h5 class="card-title">Total Ekstrakurikuler</h5>
-                    <p class="card-text fs-3">5</p>
+                    <p class="card-text fs-3 count-up"data-target="{{ $jumlahEkstrakurikuler }}">0</p>
                 </div>
             </div>
         </div>
@@ -40,22 +40,21 @@
         <div class="col-md-3 mb-3">
             <div class="card text-white bg-danger">
                 <div class="card-body">
-                    <h5 class="card-title">Total Berita</h5>
-                    <p class="card-text fs-3">10</p>
+                    <h5 class="card-title">Total Sarana Prasarana</h5>
+                    <p class="card-text fs-3 count-up"data-target="{{ $jumlahSarana }}">0</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Profil Sekolah, Visi Misi, Struktur Organisasi -->
     <div class="row mb-4">
         <div class="col-md-4 mb-3">
             <div class="p-3 border rounded h-100">
                 <h4>Profil Sekolah</h4>
                 <p> {!! $profilsekolah->content ?? 'Belum ada profil sekolah ditambahkan.' !!}</p>
                 @if($profilsekolah)
-                    <a href="{{ route('admin.profilsekolah.index', $vision->id) }}" class="btn btn-sm btn-primary mb-2">Edit Profil Sekolah</a>
-                    <form action="{{ route('admin.profilsekolah.destroy', $vision->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus profil sekolah ini?')">
+                    <a href="{{ route('admin.profilsekolah.index', $profilsekolah->id) }}" class="btn btn-sm btn-primary mb-2">Edit Profil Sekolah</a>
+                    <form action="{{ route('admin.profilsekolah.destroy', $profilsekolah->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus profil sekolah ini?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-sm btn-danger">Hapus Profil Sekolah</button>
@@ -126,7 +125,7 @@
       <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="strukturModalLabel">Preview Struktur Organisasi</h5>
+            <h5 class="modal-title" id="strukturModalLabel">Struktur Organisasi</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
           </div>
           <div class="modal-body text-center">
@@ -136,61 +135,6 @@
       </div>
     </div>
     @endif
-
-    <!-- Table Berita Terbaru -->
-    <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            Berita Terbaru
-        </div>
-        <div class="card-body">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Judul</th>
-                        <th>Tanggal</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Perayaan Hari Pendidikan Nasional</td>
-                        <td>02 Mei 2025</td>
-                    </tr>
-                    <tr>
-                        <td>SDN 1 Wirasaba Juara Futsal</td>
-                        <td>20 April 2025</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Table Galeri Terbaru -->
-    <div class="card mb-4">
-        <div class="card-header bg-success text-white">
-            Galeri Terbaru
-        </div>
-        <div class="card-body">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>Judul</th>
-                        <th>Tanggal Upload</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Foto Kegiatan Upacara</td>
-                        <td>01 Mei 2025</td>
-                    </tr>
-                    <tr>
-                        <td>Foto Lomba 17 Agustus</td>
-                        <td>18 Agustus 2024</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
 
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -241,5 +185,29 @@
     });
 </script>
 @endif
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const counters = document.querySelectorAll('.count-up');
+        counters.forEach(counter => {
+            let target = +counter.getAttribute('data-target');
+            let count = 0;
+            const speed = 30; // lebih kecil = lebih cepat
+
+            const updateCount = () => {
+                const increment = Math.ceil(target / 40);
+                if (count < target) {
+                    count += increment;
+                    counter.innerText = count;
+                    setTimeout(updateCount, speed);
+                } else {
+                    counter.innerText = target;
+                }
+            };
+
+            updateCount();
+        });
+    });
+</script>
 
 @endsection

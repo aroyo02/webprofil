@@ -1,22 +1,14 @@
-@extends('layouts.admin')
+@extends('admin.layout.navbar')
 
 @section('content')
 <div class="container">
     <h3>Struktur Organisasi</h3>
-
-    {{-- Notifikasi --}}
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @elseif(session('deleted'))
-        <div class="alert alert-danger">{{ session('deleted') }}</div>
-    @endif
 
     {{-- Error validasi dari backend --}}
     @if ($errors->has('image'))
         <div class="alert alert-danger">{{ $errors->first('image') }}</div>
     @endif
 
-    {{-- Form Upload --}}
     <form action="{{ route('admin.strukturorganisasi.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
@@ -63,7 +55,7 @@
         if (file) {
             if (file.size > maxSize) {
                 alert("Ukuran gambar maksimal 2MB!");
-                input.value = ""; // Reset input
+                input.value = ""; 
                 previewContainer.style.display = 'none';
                 return;
             }

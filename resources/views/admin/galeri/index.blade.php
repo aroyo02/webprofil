@@ -1,7 +1,17 @@
-@extends('layouts.admin')
+@extends('admin.layout.navbar')
 
 @section('content')
 <h1>Daftar Galeri</h1>
+{{-- Validasi dari Laravel --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 <div class="row">
     @foreach($galeris as $galeri)
         <div class="col-md-3 mb-4">
@@ -42,6 +52,7 @@
 
 <!-- SweetAlert & Bootstrap Modal Script -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <script>
     // Menangani tampilan gambar dalam modal saat diklik
     document.addEventListener('DOMContentLoaded', function () {

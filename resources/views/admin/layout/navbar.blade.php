@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +9,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Summernote CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.css" rel="stylesheet">
 
     <style>
         body {
@@ -40,7 +42,6 @@
         }
     </style>
 </head>
-<body>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -88,11 +89,24 @@
                 <li class="nav-item">
                     <a class="nav-link text-white" href="{{ route('admin.strukturorganisasi.index') }}"><i class="bi bi-diagram-3"></i> <span>Struktur Organisasi</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#"><i class="bi bi-people"></i> <span>Data Siswa</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white" href="#"><i class="bi bi-person-badge"></i> <span>Data Guru</span></a>
+                 <li class="nav-item">
+                    <a class="nav-link text-white" data-bs-toggle="collapse" href="#submenuGuru" role="button" aria-expanded="false" aria-controls="submenuGuru">
+                        <i class="bi bi-people"></i> <span>Data Guru dan Siswa</span>
+                    </a>
+                    <div class="collapse" id="submenuGuru">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('admin.siswaguru.create') }}">
+                                    <i class="bi bi-plus-circle"></i> Tambah Data
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('admin.siswaguru.index') }}">
+                                    <i class="bi bi-card-list"></i> Daftar Data
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" data-bs-toggle="collapse" href="#submenuEkskul" role="button" aria-expanded="false" aria-controls="submenuEkskul">
@@ -133,7 +147,23 @@
                     </div>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="#"><i class="bi bi-newspaper"></i> <span>Berita</span></a>
+                    <a class="nav-link text-white" data-bs-toggle="collapse" href="#submenuBerita" role="button" aria-expanded="false" aria-controls="submenuBerita">
+                        <i class="bi bi-newspaper"></i> <span>Berita</span>
+                    </a>
+                    <div class="collapse" id="submenuBerita">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('admin.berita.create') }}">
+                                    <i class="bi bi-plus-circle"></i> Tambah Data
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{ route('admin.berita.index') }}">
+                                    <i class="bi bi-card-list"></i> Daftar Berita
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white" data-bs-toggle="collapse" href="#submenuGaleri" role="button" aria-expanded="false" aria-controls="submenuGaleri">
@@ -177,5 +207,12 @@
     </script>
     @yield('scripts')
 
+    <!-- jQuery (wajib untuk Summernote) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Summernote JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-lite.min.js"></script>
+
+    @stack('scripts')
 </body>
 </html>

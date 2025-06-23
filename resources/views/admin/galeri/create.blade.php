@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('admin.layout.navbar')
 
 @section('content')
 <h1>Tambah Galeri</h1>

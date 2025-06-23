@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+
+// Admin controllers
 use App\Http\Controllers\Admin\SchoolProfileController;
 use App\Http\Controllers\Admin\VisionController;
 use App\Http\Controllers\Admin\MissionController;
@@ -10,12 +12,24 @@ use App\Http\Controllers\Admin\StrukturOrganisasiController;
 use App\Http\Controllers\Admin\SaranaPrasaranaController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\EkstrakurikulerController;
+use App\Http\Controllers\Admin\BeritaController;
+use App\Http\Controllers\Admin\SiswaGuruController;
+
+// Publik controllers
+use App\Http\Controllers\Halpublik\DashboardPublikController;
+use App\Http\Controllers\Halpublik\SchoolProfilPublikController;
+use App\Http\Controllers\Halpublik\VisiMisiPublikController;
+use App\Http\Controllers\Halpublik\StrukturOrganisasiPublikController;
 
 
-// Landing page (public)
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
+// Halaman publik
+Route::get('/', [DashboardPublikController::class, 'index'])->name('dashboardpublik');
+Route::get('/profilsekolah', [SchoolProfilPublikController::class, 'index'])->name('profilsekolah');
+Route::get('/visimisi', [VisiMisiPublikController::class, 'index'])->name('visimisi');
+Route::get('/struktur-organisasi', [StrukturOrganisasiPublikController::class, 'index'])->name('strukturorganisasi');
+
 
 // Redirect dashboard umum ke dashboard admin
 Route::get('/dashboard', function () {
@@ -81,6 +95,31 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/ekstrakurikuler/{id}/edit', [EkstrakurikulerController::class, 'edit'])->name('ekstrakurikuler.edit');
     Route::put('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'update'])->name('ekstrakurikuler.update');
     Route::delete('/ekstrakurikuler/{id}', [EkstrakurikulerController::class, 'destroy'])->name('ekstrakurikuler.destroy');
+
+    // berita
+    Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+    Route::get('/berita/create', [BeritaController::class, 'create'])->name('berita.create');
+    Route::get('/berita/{id}/edit', [BeritaController::class, 'create'])->name('berita.edit');
+    Route::post('/berita', [BeritaController::class, 'store'])->name('berita.store');
+    Route::put('/berita/{id}', [BeritaController::class, 'update'])->name('berita.update');
+    Route::delete('/berita/{id}', [BeritaController::class, 'destroy'])->name('berita.destroy');
+    Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
+
+    //siswaguru
+    Route::get('create', [SiswaGuruController::class, 'create'])->name('siswaguru.create');
+    Route::post('siswa/store', [SiswaGuruController::class, 'storeSiswa'])->name('siswa.store');
+    Route::delete('siswa', [SiswaGuruController::class, 'destroySiswa'])->name('siswa.destroy');
+
+    Route::post('guru/store', [SiswaGuruController::class, 'storeGuru'])->name('guru.store');
+    Route::get('guru', [SiswaGuruController::class, 'indexGuru'])->name('siswaguru.index');
+    Route::get('guru/{id}/edit', [SiswaGuruController::class, 'editGuru'])->name('guru.edit');
+    Route::put('guru/{id}', [SiswaGuruController::class, 'updateGuru'])->name('guru.update');
+    Route::delete('guru/{id}', [SiswaGuruController::class, 'destroyGuru'])->name('guru.destroy');
+
 });
+
+Route::get('/profilsekolah', [SchoolProfilPublikController::class, 'index'])->name('profilsekolah');
+Route::get('/', [DashboardPublikController::class, 'index'])->name('dashboardpublik');
+
 
 require __DIR__.'/auth.php';

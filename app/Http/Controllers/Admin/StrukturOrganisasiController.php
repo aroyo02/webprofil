@@ -41,13 +41,16 @@ class StrukturOrganisasiController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'Struktur organisasi berhasil ditambahkan.');
     }
 
-    public function destroy()
+     public function destroy()
     {
         $struktur = StrukturOrganisasi::first();
 
         if ($struktur) {
-            Storage::delete('public/' . $struktur->image);
+            if ($struktur->image && Storage::disk('public')->exists($struktur->image)) {
+                Storage::disk('public')->delete($struktur->image);
+            }
             $struktur->delete();
+
             return redirect()->route('admin.dashboard')->with('deleted', 'Struktur organisasi berhasil dihapus.');
         }
 

@@ -7,6 +7,10 @@ use App\Models\SchoolProfile;
 use App\Models\Vision;
 use App\Models\Mission;
 use App\Models\StrukturOrganisasi;
+use App\Models\Siswa;
+use App\Models\Guru;
+use App\Models\Ekstrakurikuler;
+use App\Models\SaranaPrasarana;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -17,8 +21,14 @@ class DashboardController extends Controller
         $vision = Vision::latest()->first();
         $mission = Mission::latest()->first();
         $struktur = StrukturOrganisasi::first();
+    
+        $jumlahSiswa = Siswa::first()?->jumlah_siswa ?? 0;
+        $jumlahGuru = Guru::count();
+        $jumlahEkstrakurikuler = Ekstrakurikuler::count();
+        $jumlahSarana = SaranaPrasarana::count();
 
-        // Kirim data ke view dashboard
-        return view('admin.dashboard', compact('profilsekolah', 'vision', 'mission', 'struktur'));
+        return view('admin.dashboard', compact('profilsekolah', 'vision', 'mission', 'struktur', 'jumlahSiswa', 'jumlahGuru', 'jumlahEkstrakurikuler', 'jumlahSarana'));
+
     }
+    
 }
