@@ -23,7 +23,7 @@
 
             <!-- Logo + Nama Sekolah -->
             <a class="navbar-brand d-flex align-items-center fw-bold" href="{{ route('dashboardpublik') }}">
-                <img src="{{ asset('gambar/logoamikom.png') }}" alt="Logo Sekolah" width="40" height="40" class="me-2">
+                <img src="{{ asset('gambar/logosekolah.png') }}" alt="Logo Sekolah" width="40" height="40" class="me-2">
                 SDN 1 Wirasaba
             </a>
 
@@ -42,20 +42,21 @@
                              <li><a class="dropdown-item" href="{{ route('profilsekolah') }}">Profil Sekolah</a></li>
                              <li><a class="dropdown-item" href="{{ route('visimisi') }}">Visi Misi</a></li>
                              <li><a class="dropdown-item" href="{{ route('strukturorganisasi') }}">Struktur Organisasi</a></li>
-                             <li><a class="dropdown-item" href="#">Daftar Guru</a></li>
+                             <li><a class="dropdown-item" href="{{ route('daftarguru') }}">Daftar Guru</a></li>
                         </ul>
                     </li>
 
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="infoDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Informasi</a>
                         <ul class="dropdown-menu" aria-labelledby="infoDropdown">
-                            <li><a class="dropdown-item" href="#">Ekstrakurikuler</a></li>
-                            <li><a class="dropdown-item" href="#">Sarpras</a></li>
+                            <li><a class="dropdown-item" href="{{ route('ekskul') }}">Ekstrakurikuler</a></li>
+                            <li><a class="dropdown-item" href="{{ route('sarpras') }}">Sarpras</a></li>
                         </ul>
                     </li>
 
-                    <li class="nav-item"><a class="nav-link" href="#">Galeri</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Berita</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('galeri') }}">Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('berita.publik') }}">Berita</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/kontak">Kontak</a></li>
                 </ul>
             </div>
         </div>

@@ -32,7 +32,7 @@
                 <!-- Teks Profil -->
                 <div class="col-md-6">
                     <h2 class="fw-bold animate__animated animate__fadeInUp">Profil SD Negeri 1 Wirasaba</h2>
-                    <p class="text-muted animate__animated animate__fadeInUp animate__delay-1s">
+                    <p class="text-muted ">
                         @if($profil)
                             {!! $profil->content !!}
                         @else
@@ -43,6 +43,8 @@
             </div>
         </div>
     </section>
+
+@include('viewpublik/layouts/footer')
 
 <!-- script dropdown -->
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

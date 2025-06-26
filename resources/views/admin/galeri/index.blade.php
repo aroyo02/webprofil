@@ -98,20 +98,4 @@
     });
 </script>
 @endif
-
-@if(session('updated'))
-<script>
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'info',
-        title: "{{ session('updated') }}",
-        background: '#000080',
-        color: '#ffffff',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-    });
-</script>
-@endif
 @endsection

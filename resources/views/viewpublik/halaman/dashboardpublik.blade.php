@@ -103,13 +103,42 @@
             margin-top: 10px;
         }
 
+         .berita-card {
+        transition: transform 0.3s ease;
+    }
 
-        .footer {
-            background-color: #111;
-            color: white;
-            padding: 50px 20px;
-            text-align: center;
-        }
+    .berita-card:hover {
+        transform: scale(1.03);
+    }
+
+    .berita-card .overlay {
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .berita-card:hover .overlay {
+        transform: translateY(-5px);
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .berita-tanggal {
+        background-color: rgba(113, 113, 113, 0.71); /* Bootstrap Primary dengan sedikit transparansi */
+        font-size: 0.75rem;
+        font-weight: 500;
+        letter-spacing: 0px;
+    }
+
+    .beritaScroll::-webkit-scrollbar {
+        display: none;
+    }
+
+    @media (max-width: 768px) {
+    /* Sembunyikan tombol panah di layar kecil */
+    .btn-scroll {
+        display: none !important;
+    }
+    }
+
+
     </style>
 </head>
 
@@ -143,7 +172,7 @@
                 <!-- Teks Profil -->
                 <div class="col-md-6">
                     <h2 class="fw-bold animate__animated animate__fadeInUp">Profil SD Negeri 1 Wirasaba</h2>
-                    <p class="animate__animated animate__fadeInUp animate__delay-1s">
+                    <p class="text-muted animate__animated animate__fadeInUp animate__delay-1s">
                         @if($profil)
                             {!! $profil->content !!}
                         @else
@@ -155,31 +184,30 @@
         </div>
     </section>
 
-    <!-- Statistik -->
     <section class="py-5 bg-white animate__animated animate__fadeIn">
         <div class="container">
             <div class="row text-center g-4">
                 <div class="col-md-3">
                     <div class="card shadow-sm border-0 p-4" style="background-color:rgb(0, 98, 244);">
-                        <h2 class="fw-bold count" style="color: white;" data-target="100">0</h2>
+                        <h2 class="fw-bold count" style="color: white;" data-target="{{ $jumlahSiswa }}">0</h2>
                         <p style="color: white;">Siswa</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card shadow-sm border-0 p-4" style="background-color: rgb(0, 98, 244);">
-                        <h2 class="fw-bold count"style="color: white;" data-target="15">0</h2>
+                        <h2 class="fw-bold count"style="color: white;" data-target="{{ $jumlahGuru }}">0</h2>
                         <p style="color: white;">Guru</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card shadow-sm border-0 p-4" style="background-color: rgb(0, 98, 244);">
-                        <h2 class="fw-bold count" style="color: white;" data-target="3">0</h2>
+                        <h2 class="fw-bold count" style="color: white;" data-target="{{ $jumlahEkstrakurikuler }}">0</h2>
                         <p style="color: white;">Ekstrakurikuler</p>
                     </div>
                 </div>
                 <div class="col-md-3">
                     <div class="card shadow-sm border-0 p-4" style="background-color: rgb(0, 98, 244);">
-                        <h2 class="fw-bold count" style="color: white;" data-target="4">0</h2>
+                        <h2 class="fw-bold count" style="color: white;" data-target="{{ $jumlahSarana }}">0</h2>
                         <p style="color: white;">Sarpras</p>
                     </div>
                 </div>
@@ -202,7 +230,7 @@
                             style="width:60px" alt="Visi Misi">
                         <div class="card-body">
                             <h6 class="card-title">Visi Misi</h6>
-                            <a href="#" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
+                            <a href="{{ route('visimisi') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -214,7 +242,7 @@
                             style="width:60px" alt="Daftar Guru">
                         <div class="card-body">
                             <h6 class="card-title">Daftar Guru</h6>
-                            <a href="#" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
+                            <a href="{{ route('daftarguru') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -226,7 +254,7 @@
                             style="width:60px" alt="Struktur Organisasi">
                         <div class="card-body">
                             <h6 class="card-title">Struktur Organisasi</h6>
-                            <a href="#" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
+                            <a href="{{ route('strukturorganisasi') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -238,7 +266,7 @@
                             style="width:60px" alt="Ekstrakurikuler">
                         <div class="card-body">
                             <h6 class="card-title">Ekstrakurikuler</h6>
-                            <a href="#" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
+                            <a href="{{ route('ekskul') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -250,7 +278,7 @@
                             style="width:60px" alt="Sarpras">
                         <div class="card-body">
                             <h6 class="card-title">Sarpras</h6>
-                            <a href="#" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
+                            <a href="{{ route('sarpras') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -262,7 +290,7 @@
                             style="width:60px" alt="Galeri">
                         <div class="card-body">
                             <h6 class="card-title">Galeri</h6>
-                            <a href="#" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
+                            <a href="{{ route('galeri') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
@@ -273,71 +301,94 @@
     </section>
 
     <!-- Berita -->
-    <section class="py-5 bg-light" id="berita">
-        <div class="container position-relative text-center">
-            <h3 class="fw-bold animate__animated animate__fadeInUp" style="padding-bottom: 50px;">Berita</h3>
+<section class="py-5 bg-light position-relative" id="berita">
+    <div class="container text-center">
+        <h3 class="fw-bold animate__animated animate__fadeInUp mb-5">Berita</h3>
 
-            <!-- Tombol Navigasi -->
-            <button class="btn btn-outline-primary position-absolute top-50 start-0 translate-middle-y z-3"
-                id="scrollLeft">
-                &#10094;
-            </button>
-            <button class="btn btn-outline-primary position-absolute top-50 end-0 translate-middle-y z-3"
-                id="scrollRight">
-                &#10095;
-            </button>
+        <!-- Tombol navigasi scroll -->
+        <button onclick="scrollBerita('left')" 
+        class="btn btn-primary position-absolute top-50 translate-middle-y z-1"style="left: 5rem;">&lt;
+        </button>
 
-            <!-- Wrapper Scroll -->
-            <div class="d-flex gap-4 px-4" id="beritaScroll" style="overflow-x: hidden; scroll-behavior: smooth;">
+        <button onclick="scrollBerita('right')" 
+        class="btn btn-primary position-absolute top-50 translate-middle-y z-1" style="right: 5rem;">&gt;
+        </button>
 
-                <!-- Item Berita -->
-                <div class="card flex-shrink-0" style="width: 18rem; min-width: 18rem;">
-                    <img src="https://via.placeholder.com/300x180" class="card-img-top" alt="Perpisahan">
-                    <div class="card-body">
-                        <h5 class="card-title">Perpisahan 2025</h5>
-                        <small class="text-muted">19-06-2025</small>
-                    </div>
+
+        <!-- Wrapper Scroll -->
+        <div id="beritaScroll"
+         class="d-flex gap-4 px-4 overflow-auto"
+         style="scroll-behavior: smooth; overflow-y: hidden; scrollbar-width: none; -ms-overflow-style: none;">
+    
+        @foreach($beritas as $berita)
+        <a href="{{ route('berita.showpublik', $berita->id) }}" class="text-decoration-none text-white">
+            <div class="berita-card position-relative flex-shrink-0 rounded-4 overflow-hidden shadow"
+                 style="min-width: 18rem; height: 250px; background-image: url('{{ asset('storage/' . $berita->gambar) }}'); background-size: cover; background-position: center;">
+                
+                <!-- Tanggal -->
+                <div class="position-absolute top-0 start-0 berita-tanggal px-3 py-1 rounded-end mt-2 ms-2 text-white">
+                    {{ \Carbon\Carbon::parse($berita->created_at)->format('d M Y') }}
                 </div>
-                <div class="card flex-shrink-0" style="width: 18rem; min-width: 18rem;">
-                    <img src="https://via.placeholder.com/300x180" class="card-img-top" alt="Libur Semester">
-                    <div class="card-body">
-                        <h5 class="card-title">Libur Semester Genap</h5>
-                        <small class="text-muted">19-06-2025</small>
-                    </div>
-                </div>
-                <div class="card flex-shrink-0" style="width: 18rem; min-width: 18rem;">
-                    <img src="https://via.placeholder.com/300x180" class="card-img-top" alt="Ajaran Baru">
-                    <div class="card-body">
-                        <h5 class="card-title">Tahun Ajaran Baru</h5>
-                        <small class="text-muted">19-06-2025</small>
-                    </div>
-                </div>
-                <div class="card flex-shrink-0" style="width: 18rem; min-width: 18rem;">
-                    <img src="https://via.placeholder.com/300x180" class="card-img-top" alt="Kegiatan Sekolah">
-                    <div class="card-body">
-                        <h5 class="card-title">Kegiatan Sekolah</h5>
-                        <small class="text-muted">18-06-2025</small>
-                    </div>
-                </div>
-                <!-- Tambah berita lain di sini -->
-                <div class="card flex-shrink-0" style="width: 18rem; min-width: 18rem;">
-                    <img src="https://via.placeholder.com/300x180" class="card-img-top" alt="Kegiatan Sekolah">
-                    <div class="card-body">
-                        <h5 class="card-title">Lomba Classmeeting</h5>
-                        <small class="text-muted">21-06-2025</small>
-                    </div>
+    
+                <!-- Overlay Judul -->
+                <div class="overlay position-absolute bottom-0 w-100 px-3 py-2" style="background: rgba(0, 0, 0, 0.5);">
+                    <h5 class="text-white m-0">{{ $berita->judul }}</h5>
                 </div>
             </div>
-    </section>
+        </a>
+        @endforeach
+    </div>
 
-    <!-- Kontak -->
-    <section class="footer animate__animated animate__fadeInUp">
-        <div class="container">
-            <h3>Kontak</h3>
-            <p>SDN 1 Wirasaba siap menjalin komunikasi yang baik dengan masyarakat. Jika memiliki pertanyaan, masukan,
-                atau informasi lain, silakan hubungi kami. Kami akan memberikan respon terbaik untuk kebutuhan Anda.</p>
+
+        <!-- Tombol Lihat Semua -->
+        <div class="mt-4">
+            <a href="{{ route('berita.publik') }}" class="btn btn-outline-primary">
+                Lihat Semua Berita →
+            </a>
         </div>
-    </section>
+    </div>
+</section>
+
+
+<section id="contact" class="py-5">
+    <div class="container">
+        <!-- Judul -->
+        <h2 class="text-center fw-bold mb-2" data-aos="fade-up">Kontak</h2>
+        <p class="text-center mb-5 text-black" data-aos="fade-up" data-aos-delay="100">
+            Terima kasih telah mengunjungi website SDN 1 Wirasaba. Kami siap membantu dan menjawab segala pertanyaan Anda terkait kegiatan sekolah, dan informasi lainnya. Kami siap menjalin komunikasi yang baik dengan masyarakat, siswa, dan orangtua. Jika Anda memiliki pertanyaan, masukan, atau informasi
+            yang ingin disampaikan, silakan hubungi kami melalui media yang tersedia di bawah ini. Kami akan berusaha memberikan respon terbaik untuk kebutuhan Anda.
+        </p>
+
+        <div class="row align-items-center">
+            <!-- Embed Google Map -->
+            <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right" data-aos-duration="1200">
+                <div class="map-frame">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.1100067412!2d109.4175892745488!3d-7.453080673451991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6550e6fd8c3555%3A0xf322366af535cbb8!2sSD%20Negeri%20Wirasaba%201!5e0!3m2!1sid!2sid!4v1750912401340!5m2!1sid!2sid"
+                        width="100%" height="300" style="border-radius: 8px;;" allowfullscreen="" loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1200">
+                <div class="contact-info text-black">
+                    <h5 class="fw-bold mb-2">Alamat Sekolah</h5>
+                    <p>Jl. Veteran, Kutorejo, Jetis, Kec. Sukoharjo, Kabupaten Sukoharjo, Jawa Tengah 57511</p>
+
+                    <h5 class="fw-bold mt-4 mb-2">Nomor Telepon</h5>
+                    <p>(021) 593023</p>
+
+                    <h5 class="fw-bold mt-4 mb-2">Email</h5>
+                    <p>konisukoharjo@yahoo.com</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    @include('viewpublik/layouts/footer')
         
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -373,35 +424,20 @@
             observer.observe(counter);
         });
     </script>
+
     <script>
-        // Scroll horizontal untuk berita
-        const scrollContainer = document.getElementById("beritaScroll");
-        const scrollLeft = document.getElementById("scrollLeft");
-        const scrollRight = document.getElementById("scrollRight");
+    function scrollBerita(direction) {
+        const container = document.getElementById('beritaScroll');
+        const scrollAmount = 300;
 
-        scrollLeft.addEventListener("click", () => {
-            scrollContainer.scrollBy({ left: -300, behavior: 'smooth' });
-        });
-
-        scrollRight.addEventListener("click", () => {
-            scrollContainer.scrollBy({ left: 300, behavior: 'smooth' });
-        });
-
-        // Animasi muncul ketika kartu masuk layar
-        const cards = document.querySelectorAll('#beritaScroll .card');
-        const observer = new IntersectionObserver(entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("animate__animated", "animate__fadeInUp");
-                    observer.unobserve(entry.target); // jalankan sekali saja
-                }
-            });
-        }, { threshold: 0.5 });
-
-        cards.forEach(card => {
-            observer.observe(card);
-        });
+        if (direction === 'left') {
+            container.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        } else {
+            container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        }
+        }
     </script>
+
 
 </body>
 </html>

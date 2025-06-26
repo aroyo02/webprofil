@@ -20,8 +20,11 @@ use App\Http\Controllers\Halpublik\DashboardPublikController;
 use App\Http\Controllers\Halpublik\SchoolProfilPublikController;
 use App\Http\Controllers\Halpublik\VisiMisiPublikController;
 use App\Http\Controllers\Halpublik\StrukturOrganisasiPublikController;
-
-
+use App\Http\Controllers\Halpublik\EkstrakurikulerPublikController;
+use App\Http\Controllers\Halpublik\DaftarGuruPublikController;
+use App\Http\Controllers\Halpublik\SarprasPublikController;
+use App\Http\Controllers\Halpublik\GaleriPublikController;
+use App\Http\Controllers\Halpublik\BeritaPublikController;
 
 
 // Halaman publik
@@ -29,6 +32,16 @@ Route::get('/', [DashboardPublikController::class, 'index'])->name('dashboardpub
 Route::get('/profilsekolah', [SchoolProfilPublikController::class, 'index'])->name('profilsekolah');
 Route::get('/visimisi', [VisiMisiPublikController::class, 'index'])->name('visimisi');
 Route::get('/struktur-organisasi', [StrukturOrganisasiPublikController::class, 'index'])->name('strukturorganisasi');
+Route::get('/ekstrakurikuler', [EkstrakurikulerPublikController::class, 'index'])->name('ekskul');
+Route::get('/daftarguru', [DaftarGuruPublikController::class, 'index'])->name('daftarguru');
+Route::get('/saranaprasarana', [SarprasPublikController::class, 'index'])->name('sarpras');
+Route::get('/galeri', [GaleriPublikController::class, 'index'])->name('galeri');
+Route::get('/berita', [BeritaPublikController::class, 'index'])->name('berita.publik');
+Route::get('/berita/{id}', [BeritaPublikController::class, 'show'])->name('berita.showpublik');
+Route::get('/kontak', function () {
+    return view('viewpublik.halaman.kontak');
+});
+
 
 
 // Redirect dashboard umum ke dashboard admin

@@ -9,7 +9,6 @@ class StrukturOrganisasiPublikController extends Controller
 {
     public function index()
     {
-        // Ambil data struktur terbaru (karena hanya 1)
         $struktur = StrukturOrganisasi::first();
 
         return view('viewpublik.halaman.strukturorganisasi', compact('struktur'));
