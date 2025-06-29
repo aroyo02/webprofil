@@ -19,8 +19,9 @@ class BeritaController extends Controller
 
     public function create($id = null)
     {
+        $profilSekolah = SchoolProfile::first();
         $berita = $id ? Berita::findOrFail($id) : null;
-        return view('admin.berita.create', compact('berita'));
+        return view('admin.berita.create', compact('profilSekolah','berita'));
     }
 
     public function store(Request $request)

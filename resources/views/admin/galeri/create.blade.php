@@ -3,10 +3,6 @@
 @section('content')
 <h1>Tambah Galeri</h1>
 
-@if(session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-@endif
-
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul class="mb-0">
@@ -25,4 +21,37 @@
     </div>
     <button type="submit" class="btn btn-primary">Upload</button>
 </form>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+@if(session('success'))
+<script>
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: "{{ session('success') }}",
+        background: '#006400',
+        color: '#ffffff',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+</script>
+@endif
+
+@if(session('deleted'))
+<script>
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'error',
+        title: "{{ session('deleted') }}",
+        background: '#721c24',
+        color: '#ffffff',      
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+</script>
+@endif
 @endsection

@@ -19,7 +19,8 @@ class GaleriController extends Controller
 
     public function create()
     {
-        return view('admin.galeri.create');
+        $profilSekolah = SchoolProfile::first();
+        return view('admin.galeri.create', compact('profilSekolah'));
     }
 
     public function store(Request $request)
@@ -42,7 +43,7 @@ class GaleriController extends Controller
             }
         }
 
-        return redirect()->route('admin.galeri.index')->with('success', 'File berhasil ditambahkan.');
+        return redirect()->route('admin.galeri.create')->with('success', 'File berhasil ditambahkan.');
     }
 
     public function destroy($id)
@@ -57,6 +58,6 @@ class GaleriController extends Controller
     
         $galeri->delete();
     
-        return redirect()->route('admin.galeri.index')->with('success', 'File berhasil dihapus.');
+        return redirect()->route('admin.galeri.index')->with('deleted', 'File berhasil dihapus.');
     }
 }

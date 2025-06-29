@@ -19,8 +19,10 @@ class EkstrakurikulerController extends Controller
 
     public function create()
     {
-        return view('admin.ekstrakurikuler.create');
+        $profilSekolah = SchoolProfile::first();
+        return view('admin.ekstrakurikuler.create', compact('profilSekolah'));
     }
+
 
     public function store(Request $request)
     {
@@ -41,7 +43,7 @@ class EkstrakurikulerController extends Controller
         'logo' => $logoPath,
     ]);
 
-    return redirect()->route('admin.ekstrakurikuler.index')->with('success', 'Ekstrakurikuler berhasil ditambahkan.');
+    return redirect()->route('admin.ekstrakurikuler.create')->with('success', 'Ekstrakurikuler berhasil ditambahkan.');
     }
 
 

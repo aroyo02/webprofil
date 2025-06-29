@@ -4,11 +4,6 @@
 <div class="container">
     <h3>{{ isset($item) ? 'Edit' : 'Tambah' }} Sarana Prasarana</h3>
 
-    {{-- Notifikasi sukses --}}
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
     {{-- Notifikasi error validasi --}}
     @if($errors->any())
         <div class="alert alert-danger">
@@ -77,4 +72,54 @@
         <a href="{{ route('admin.saranaprasarana.index') }}"></a>
     </form>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: "{{ session('success') }}",
+        background: '#006400',
+        color: '#ffffff',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+</script>
+@endif
+
+@if(session('deleted'))
+<script>
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'error',
+        title: "{{ session('deleted') }}",
+        background: '#721c24',
+        color: '#ffffff',      
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+</script>
+@endif
+
+@if(session('updated'))
+<script>
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'info',
+        title: "{{ session('updated') }}",
+        background: '#000080',
+        color: '#ffffff',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+</script>
+@endif
 @endsection

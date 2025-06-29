@@ -21,7 +21,9 @@ class SaranaPrasaranaController extends Controller
     // Menampilkan form tambah data
     public function create()
     {
-        return view('admin.saranaprasarana.create', ['item' => null]);
+        $profilSekolah = SchoolProfile::first();
+        $item = null;
+        return view('admin.saranaprasarana.create', compact('profilSekolah', 'item'));
     }
 
     // Menyimpan data baru
@@ -39,7 +41,7 @@ class SaranaPrasaranaController extends Controller
             'gambar' => $gambarPath,
         ]);
 
-        return redirect()->route('admin.saranaprasarana.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('admin.saranaprasarana.create')->with('success', 'Data berhasil ditambahkan!');
     }
 
     // Menampilkan form edit
