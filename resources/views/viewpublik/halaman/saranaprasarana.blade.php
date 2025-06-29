@@ -9,6 +9,10 @@
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
+         body {
+            padding-top: 50px;
+        }
+        
         .sarpras-card {
             background-color: #f8f9fa;
             border: none;
@@ -71,6 +75,7 @@
         </div>
     </div>
 
+@include('viewpublik.layouts.whatsapp')
 @include('viewpublik/layouts/footer')
 
     <!-- Bootstrap + AOS JS -->

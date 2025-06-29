@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h2>Profil Sekolah</h2>
 
-    {{-- Notifikasi Sukses atau Error --}}
+    {{-- Notifikasi --}}
     @if (session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
     @elseif (session('updated'))
@@ -15,7 +15,7 @@
         <div class="alert alert-danger">{{ session('error') }}</div>
     @endif
 
-    {{-- Validasi dari Laravel --}}
+    {{-- Validasi --}}
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul class="mb-0">
@@ -26,36 +26,76 @@
         </div>
     @endif
 
-    {{-- Form Tambah / Edit --}}
-    <form id="profilForm" action="{{ $profilSekolah ? route('admin.profilsekolah.update') : route('admin.profilsekolah.store') }}" method="POST">
+    {{-- Form Profil --}}
+    <form id="profilForm" action="{{ $profilSekolah ? route('admin.profilsekolah.update') : route('admin.profilsekolah.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         @if ($profilSekolah)
-            @method('POST') {{-- Pakai POST karena update-nya tanpa ID --}}
+            @method('POST')
         @endif
 
+        {{-- Logo --}}
         <div class="mb-3">
-            <label for="content" class="form-label">Isi Profil</label>
+            <label for="logo" class="form-label">Logo Sekolah</label>
+            <input type="file" name="logo" class="form-control">
+            @if(!empty($profilSekolah->logo))
+                <img src="{{ asset('storage/' . $profilSekolah->logo) }}" alt="Logo Sekolah" height="80" class="mt-2">
+            @endif
+        </div>
+
+        {{-- Banner --}}
+        <div class="mb-3">
+            <label for="banner" class="form-label">Banner</label>
+            <input type="file" name="banner" class="form-control">
+            @if(!empty($profilSekolah->banner))
+                <img src="{{ asset('storage/' . $profilSekolah->banner) }}" alt="Banner Sekolah" height="80" class="mt-2">
+            @endif
+        </div>
+
+        {{-- Foto Profil Sekolah --}}
+        <div class="mb-3">
+            <label for="foto_profil" class="form-label">Foto Profil Sekolah</label>
+            <input type="file" name="foto_profil" class="form-control">
+            @if(!empty($profilSekolah->foto_profil))
+                <img src="{{ asset('storage/' . $profilSekolah->foto_profil) }}" alt="Foto Profil" height="80" class="mt-2">
+            @endif
+        </div>
+
+        {{-- Motto --}}
+        <div class="mb-3">
+            <label for="motto" class="form-label">Motto / Slogan</label>
+            <input type="text" name="motto" class="form-control" value="{{ old('motto', $profilSekolah->motto ?? '') }}">
+        </div>
+
+        {{-- Isi Profil --}}
+        <div class="mb-3">
+            <label for="content" class="form-label">Isi Profil Sekolah</label>
             <textarea name="content" id="content" rows="6" class="form-control">{{ old('content', $profilSekolah->content ?? '') }}</textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary">
-            {{ $profilSekolah ? 'Update Profil' : 'Tambah Profil' }}
+        {{-- Tombol --}}
+        @php
+            $hasData = $profilSekolah &&
+                ($profilSekolah->logo || $profilSekolah->banner || $profilSekolah->foto_profil || $profilSekolah->motto || $profilSekolah->content);
+        @endphp
+
+        <button type="submit" class="btn btn-{{ $hasData ? 'primary' : 'success' }}">
+            {{ $hasData ? 'Update Profil' : 'Tambah Profil' }}
         </button>
     </form>
 </div>
 
-{{-- Validasi JavaScript --}}
+{{-- Validasi JS --}}
 <script>
     document.getElementById('profilForm').addEventListener('submit', function(e) {
         const content = document.getElementById('content').value.trim();
         if (content === '') {
-            e.preventDefault(); // Cegah form submit
+            e.preventDefault();
             alert('Harap isi profil sekolah terlebih dahulu.');
         }
     });
 </script>
 
-{{-- Inisialisasi Summernote --}}
+{{-- Summernote --}}
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.css" rel="stylesheet">
@@ -72,7 +112,7 @@
                 ['fontsize', ['fontsize']],
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
-                ['insert', ['link',]],
+                ['insert', ['link']],
                 ['view', ['fullscreen', 'codeview']]
             ]
         });

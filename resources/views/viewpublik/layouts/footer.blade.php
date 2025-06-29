@@ -28,7 +28,7 @@
         <div class="row">
             <!-- Logo dan Nama -->
             <div class="col-lg-3 mb-4">
-                <img src="{{ asset('gambar/logosekolah.png') }}" alt="" class="mb-3" style="max-width: 80px;">
+                <img src="{{ $profil && $profil->logo ? asset('storage/' . $profil->logo) : asset('gambar/logo.png') }}" alt="" class="mb-3" style="max-width: 80px;">
                 <h4 class="text-white">SD Negeri 1 Wirasaba</h4>
                 <hr class="text-secondary">
             </div>
@@ -50,7 +50,7 @@
                 <h5 class="fw-bold">Informasi</h5>
                 <ul class="list-unstyled">
                     <li><a href="{{ route('ekskul') }}">Ekstrakurikuler</a></li>
-                    <li><a href="{{ route('sarpras') }}">Sarpras</a></li>
+                    <li><a href="{{ route('sarpras') }}">Sarana Prasarana</a></li>
                     <li><a href="{{ route('galeri') }}">Galeri</a></li>
                     <li><a href="{{ route('berita.publik') }}">Berita</a></li>
                 </ul>

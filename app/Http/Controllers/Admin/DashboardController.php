@@ -17,18 +17,32 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $profilsekolah = SchoolProfile::first(); // ambil satu data (karena cuma ada 1 profil sekolah)
+        // Ambil satu data profil sekolah
+        $profilSekolah = SchoolProfile::first();
+
+        // Ambil data terbaru untuk visi dan misi
         $vision = Vision::latest()->first();
         $mission = Mission::latest()->first();
+
+        // Ambil struktur organisasi
         $struktur = StrukturOrganisasi::first();
-    
+
+        // Ambil total data
         $jumlahSiswa = Siswa::first()?->jumlah_siswa ?? 0;
         $jumlahGuru = Guru::count();
         $jumlahEkstrakurikuler = Ekstrakurikuler::count();
         $jumlahSarana = SaranaPrasarana::count();
 
-        return view('admin.dashboard', compact('profilsekolah', 'vision', 'mission', 'struktur', 'jumlahSiswa', 'jumlahGuru', 'jumlahEkstrakurikuler', 'jumlahSarana'));
-
+        // Kirim ke view
+        return view('admin.dashboard', compact(
+            'profilSekolah',
+            'vision',
+            'mission',
+            'struktur',
+            'jumlahSiswa',
+            'jumlahGuru',
+            'jumlahEkstrakurikuler',
+            'jumlahSarana'
+        ));
     }
-    
 }

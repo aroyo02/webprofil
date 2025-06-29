@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\SchoolProfile;
 use App\Models\Berita;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,8 +12,9 @@ class BeritaController extends Controller
 {
     public function index()
     {
+        $profilSekolah = SchoolProfile::first();
         $beritas = Berita::latest()->get();
-        return view('admin.berita.index', compact('beritas'));
+        return view('admin.berita.index', compact('profilSekolah','beritas'));
     }
 
     public function create($id = null)

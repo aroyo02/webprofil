@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\SchoolProfile;
 use App\Models\Vision;
 use App\Models\Mission;
 
@@ -11,9 +12,10 @@ class VisionController extends Controller
 {
     public function index()
     {
+        $profilSekolah = SchoolProfile::first();
         $vision = Vision::first();
         $mission = Mission::first();
-        return view('admin.visimisi.index', compact('vision', 'mission'));
+        return view('admin.visimisi.index', compact('profilSekolah','vision', 'mission'));
     }
 
     public function store(Request $request)

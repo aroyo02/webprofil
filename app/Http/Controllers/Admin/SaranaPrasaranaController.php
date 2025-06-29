@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\SchoolProfile;
 use App\Models\SaranaPrasarana;
 use Illuminate\Support\Facades\Storage;
 
@@ -12,8 +13,9 @@ class SaranaPrasaranaController extends Controller
     // Menampilkan daftar semua data
     public function index()
     {
+        $profilSekolah = SchoolProfile::first();
         $data = SaranaPrasarana::all();
-        return view('admin.saranaprasarana.index', compact('data'));
+        return view('admin.saranaprasarana.index', compact('profilSekolah','data'));
     }
 
     // Menampilkan form tambah data

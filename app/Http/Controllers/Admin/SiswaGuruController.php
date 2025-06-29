@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\SchoolProfile;
 use App\Models\Siswa;
 use App\Models\Guru;
 use Illuminate\Support\Facades\Storage;
@@ -12,9 +13,10 @@ class SiswaGuruController extends Controller
 {
     public function create()
     {
+        $profilSekolah = SchoolProfile::first();
         $siswa = Siswa::first();
         $gurus = Guru::all();
-        return view('admin.siswaguru.create', compact('siswa', 'gurus'));
+        return view('admin.siswaguru.create', compact('profilSekolah','siswa', 'gurus'));
     }
 
     public function storeSiswa(Request $request)
@@ -70,14 +72,15 @@ class SiswaGuruController extends Controller
             return redirect()->route('admin.siswaguru.index')->with('success', 'Semua data berhasil disimpan');
         }
     
-        return redirect()->route('admin.siswaguru.index')->with('success', 'Semua data berhasil disimpan');
+        return redirect()->route('admin.siswaguru.create')->with('success', 'Semua data berhasil disimpan');
     }
 
     public function indexGuru()
     {
+        $profilSekolah = SchoolProfile::first();
         $gurus = Guru::all();
         $siswa = Siswa::first();
-        return view('admin.siswaguru.index', compact('gurus', 'siswa'));
+        return view('admin.siswaguru.index', compact('gurus', 'siswa','profilSekolah'));
     }
 
     public function editGuru($id)

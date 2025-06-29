@@ -50,24 +50,17 @@
                 ☰
             </button>
             <a class="navbar-brand" href="#">
-                <img src="{{ asset('images/logo-sekolah.png') }}" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+                <img src="{{ $profilSekolah && $profilSekolah->logo ? asset('storage/' . $profilSekolah->logo) : asset('default/logo.png') }}" alt="Logo" width="30" height="30">
                 SDN 1 Wirasaba
             </a>
 
-            <div class="dropdown ms-auto">
-                <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="profileDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Profil
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown">
-                    <li><a class="dropdown-item" href="#">Detail Profil</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="dropdown-item">Logout</button>
-                        </form>
-                    </li>
-                </ul>
+            <div class="ms-auto">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">
+                        Logout
+                    </button>
+                </form>
             </div>
         </div>
     </nav>
@@ -102,7 +95,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{ route('admin.siswaguru.index') }}">
-                                    <i class="bi bi-card-list"></i> Daftar Data
+                                    <i class="bi bi-card-list"></i> Data Guru & Siswa
                                 </a>
                             </li>
                         </ul>
@@ -179,6 +172,26 @@
                             <li class="nav-item">
                                 <a class="nav-link text-white" href="{{route('admin.galeri.index')}}">
                                     <i class="bi bi-card-list"></i> Daftar Galeri
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link text-white" data-bs-toggle="collapse" href="#submenuKontak" role="button" aria-expanded="false" aria-controls="submenuGaleri">
+                        <i class="bi bi-telephone"></i> <span>Kontak</span>
+                    </a>
+                    <div class="collapse" id="submenuKontak">
+                        <ul class="nav flex-column ms-3">
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{route('admin.contact.create')}}">
+                                    <i class="bi bi-plus-circle"></i> Tambah Data
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="{{route('admin.contact.index')}}">
+                                    <i class="bi bi-card-list"></i> Data Kontak
                                 </a>
                             </li>
                         </ul>

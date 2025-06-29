@@ -6,10 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SDN 1 Wirasaba</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
+
+        body {
+            padding-top: 50px;
+        }
+
         .hero-section {
-            background: url('gambar/bgsekolahan.jpg') center center / cover no-repeat;
+            background: url('gambar/bgsekolah.jpeg') center center / cover no-repeat;
             color: white;
             text-align: center;
             padding: 100px 0;
@@ -77,7 +83,7 @@
 
         /* Background pola */
         .informasi-section {
-            background-image: url('gambar/infolainnya.jpeg');
+            background-image: url('gambar/infolain.jpeg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -105,37 +111,42 @@
 
          .berita-card {
         transition: transform 0.3s ease;
-    }
+        }
+    
+        .berita-card:hover {
+            transform: scale(1.03);
+        }
+    
+        .berita-card .overlay {
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+    
+        .berita-card:hover .overlay {
+            transform: translateY(-5px);
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+    
+        .berita-tanggal {
+            background-color: rgba(113, 113, 113, 0.71); /* Bootstrap Primary dengan sedikit transparansi */
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0px;
+        }
+    
+        .beritaScroll::-webkit-scrollbar {
+            display: none;
+        }
+    
+        @media (max-width: 768px) {
+        /* Sembunyikan tombol panah di layar kecil */
+        .btn-scroll {
+            display: none !important;
+        }
+        }
 
-    .berita-card:hover {
-        transform: scale(1.03);
-    }
-
-    .berita-card .overlay {
-        transition: transform 0.3s ease, background-color 0.3s ease;
-    }
-
-    .berita-card:hover .overlay {
-        transform: translateY(-5px);
-        background-color: rgba(0, 0, 0, 0.6);
-    }
-
-    .berita-tanggal {
-        background-color: rgba(113, 113, 113, 0.71); /* Bootstrap Primary dengan sedikit transparansi */
-        font-size: 0.75rem;
-        font-weight: 500;
-        letter-spacing: 0px;
-    }
-
-    .beritaScroll::-webkit-scrollbar {
-        display: none;
-    }
-
-    @media (max-width: 768px) {
-    /* Sembunyikan tombol panah di layar kecil */
-    .btn-scroll {
-        display: none !important;
-    }
+        .kontak-icon {
+        margin-right: 8px;
+        color: #ffc107;
     }
 
 
@@ -146,43 +157,51 @@
 
     @include('viewpublik/layouts/navbar')
     
-    <!-- Hero Section -->
-    <section class="hero-section text-white text-center">
-        <div class="container animate__animated animate__fadeInUp">
-            <h1 class="fw-bold">SD Negeri 1 Wirasaba</h1>
-            <p class="lead">“Dari ruang kelas sederhana, tempat di mana setiap langkah kecil anak hari ini akan menjadi
-                pijakan kuat bagi masa depan Indonesia yang lebih baik.”</p>
-        </div>
-    </section>
-
-    <div class="transisi">
-        <img src="{{ asset('gambar/transisi.png') }}" class="img-fluid w-100">
+<!-- Hero Section -->
+<section class="hero-section text-white text-center"  
+    style="background: url('{{ asset($profil && $profil->banner ? 'storage/' . $profil->banner : 'gambar/default-banner.jpeg') }}') center center / cover no-repeat;">
+    <div class="container animate__animated animate__fadeInUp">
+        <h1 class="fw-bold">SD Negeri 1 Wirasaba</h1>
+        <p class="lead">
+            {{ $profil && $profil->motto ? '“' . $profil->motto . '”' : '“Selamat datang di website resmi sekolah kami.”' }}
+        </p>
     </div>
+</section>
 
-    <!-- Profil Sekolah -->
-    <section class="py-5 bg-white animate__animated animate__fadeInUp">
-        <div class="container">
-            <div class="row align-items-center g-5">
-                <!-- Gambar Profil -->
-                <div class="col-md-6">
-                    <img src="{{ asset('gambar/bgsekolahan.jpg') }}" alt="Gedung Sekolah"
-                        class="img-fluid shadow profil-img animate__animated animate__fadeInLeft">
-                </div>
+<div class="transisi">
+    <img src="{{ asset('gambar/transisi.png') }}" class="img-fluid w-100">
+</div>
 
-                <!-- Teks Profil -->
-                <div class="col-md-6">
-                    <h2 class="fw-bold animate__animated animate__fadeInUp">Profil SD Negeri 1 Wirasaba</h2>
-                    <p class="text-muted animate__animated animate__fadeInUp animate__delay-1s">
-                        @if($profil)
-                            {!! $profil->content !!}
-                        @else
-                            <span class="fst-italic">Belum ada data profil sekolah yang tersedia.</span>
-                        @endif
-                    </p>
-                </div>
+<!-- Profil Sekolah -->
+<section class="py-5 bg-white animate__animated animate__fadeInUp">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <!-- Gambar Profil -->
+            <div class="col-md-6">
+                @if($profil && $profil->foto_profil)
+                    <img src="{{ asset('storage/' . $profil->foto_profil) }}" alt="Gedung Sekolah"
+                         class="img-fluid shadow profil-img animate__animated animate__fadeInLeft">
+                @else
+                    <img src="{{ asset('gambar/default-profil.jpg') }}" alt="Foto Default"
+                         class="img-fluid shadow profil-img animate__animated animate__fadeInLeft">
+                @endif
+            </div>
+
+            <!-- Teks Profil -->
+            <div class="col-md-6">
+                <h2 class="fw-bold animate__animated animate__fadeInUp">Profil SD Negeri 1 Wirasaba</h2>
+                <p class="text-muted animate__animated animate__fadeInUp animate__delay-1s">
+                    @if($profil && $profil->content)
+                        {!! $profil->content !!}
+                    @else
+                        <span class="fst-italic">Belum ada data profil sekolah yang tersedia.</span>
+                    @endif
+                </p>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
 
     <section class="py-5 bg-white animate__animated animate__fadeIn">
         <div class="container">
@@ -295,7 +314,7 @@
                     </div>
                 </div>
 
-         </div>
+        </div>
     </div>
     </div>
     </section>
@@ -319,17 +338,17 @@
         <div id="beritaScroll"
          class="d-flex gap-4 px-4 overflow-auto"
          style="scroll-behavior: smooth; overflow-y: hidden; scrollbar-width: none; -ms-overflow-style: none;">
-    
+
         @foreach($beritas as $berita)
         <a href="{{ route('berita.showpublik', $berita->id) }}" class="text-decoration-none text-white">
             <div class="berita-card position-relative flex-shrink-0 rounded-4 overflow-hidden shadow"
                  style="min-width: 18rem; height: 250px; background-image: url('{{ asset('storage/' . $berita->gambar) }}'); background-size: cover; background-position: center;">
-                
+
                 <!-- Tanggal -->
                 <div class="position-absolute top-0 start-0 berita-tanggal px-3 py-1 rounded-end mt-2 ms-2 text-white">
                     {{ \Carbon\Carbon::parse($berita->created_at)->format('d M Y') }}
                 </div>
-    
+
                 <!-- Overlay Judul -->
                 <div class="overlay position-absolute bottom-0 w-100 px-3 py-2" style="background: rgba(0, 0, 0, 0.5);">
                     <h5 class="text-white m-0">{{ $berita->judul }}</h5>
@@ -363,30 +382,42 @@
             <!-- Embed Google Map -->
             <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right" data-aos-duration="1200">
                 <div class="map-frame">
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3956.1100067412!2d109.4175892745488!3d-7.453080673451991!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6550e6fd8c3555%3A0xf322366af535cbb8!2sSD%20Negeri%20Wirasaba%201!5e0!3m2!1sid!2sid!4v1750912401340!5m2!1sid!2sid"
-                        width="100%" height="300" style="border-radius: 8px;;" allowfullscreen="" loading="lazy">
+                    <iframe 
+                        src="{!! $kontak->maps_embed ?? '' !!}" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade"
+                        width="100%" height="300" style="border-radius: 8px;">
                     </iframe>
+
                 </div>
             </div>
 
             <!-- Contact Information -->
             <div class="col-lg-6" data-aos="fade-left" data-aos-duration="1200">
                 <div class="contact-info text-black">
-                    <h5 class="fw-bold mb-2">Alamat Sekolah</h5>
-                    <p>Jl. Veteran, Kutorejo, Jetis, Kec. Sukoharjo, Kabupaten Sukoharjo, Jawa Tengah 57511</p>
+                <p class="mb-1"><i class="bi bi-geo-alt kontak-icon"></i><strong>Alamat:</strong><br>
+                    {{ $kontak->alamat ?? 'Alamat belum tersedia' }}
+                </p>
 
-                    <h5 class="fw-bold mt-4 mb-2">Nomor Telepon</h5>
-                    <p>(021) 593023</p>
+                <p class="mb-1"><i class="bi bi-clock kontak-icon"></i><strong>Jam Operasional:</strong><br>
+                    {!! $kontak->jam_operasional ?? 'Jam operasional belum tersedia' !!}
+                </p>
 
-                    <h5 class="fw-bold mt-4 mb-2">Email</h5>
-                    <p>konisukoharjo@yahoo.com</p>
+                <p class="mb-1"><i class="bi bi-telephone kontak-icon"></i><strong>Nomor Telepon:</strong><br>
+                    {{ $kontak->telepon ?? '-' }}
+                </p>
 
+                <p><i class="bi bi-envelope kontak-icon"></i><strong>Email:</strong><br>
+                    {{ $kontak->email ?? '-' }}
+                </p>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
+    @include('viewpublik/layouts/whatsapp')
 
     @include('viewpublik/layouts/footer')
         

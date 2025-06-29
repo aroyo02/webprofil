@@ -9,7 +9,11 @@ return new class extends Migration {
     {
         Schema::create('school_profiles', function (Blueprint $table) {
             $table->id();
-            $table->longText('content'); 
+            $table->string('logo')->nullable();
+            $table->string('banner')->nullable();
+            $table->string('foto_profil')->nullable();
+            $table->string('motto')->nullable();
+            $table->longText('content')->nullable();
             $table->timestamps();
         });
     }

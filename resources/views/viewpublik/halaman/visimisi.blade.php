@@ -8,10 +8,38 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <style>
-        .visimisi-img {
-            max-height: 400px;
-            object-fit: cover;
+        body {
+            padding-top: 70px;
+        }
+
+        .visimisi-section {
+            padding-top: 40px;
+            padding-bottom: 60px;
+        }
+
+        .visimisi-box {
+            background-color: #ffffff;
+            border: 2px solid #f0f0f0;
             border-radius: 8px;
+            padding: 30px;
+            height: 100%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+            transition: transform 0.3s;
+        }
+
+        .visimisi-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .visimisi-title {
+            font-weight: bold;
+            margin-bottom: 20px;
+            color:rgb(0, 0, 0);
+        }
+
+        .visimisi-content {
+            color: #555;
+            font-size: 1rem;
         }
     </style>
 </head>
@@ -20,48 +48,52 @@
 
 @include('viewpublik/layouts/navbar')
 
-<!-- Judul di atas tengah -->
-<section class="pt-5 pb-3 text-center">
+<!-- Judul Halaman -->
+<section class="text-center pt-4 pb-2">
     <div class="container">
         <h2 class="fw-bold animate__animated animate__fadeInUp">Visi Misi SD Negeri 1 Wirasaba</h2>
     </div>
 </section>
 
-<section class="pb-5">
+<!-- Konten Visi & Misi -->
+<section class="visimisi-section">
     <div class="container">
-        <div class="row align-items-center g-5">
-            <!-- Gambar Visimisi -->
-            <div class="col-md-6">
-                <img src="{{ asset('gambar/bgsekolahan.jpg') }}" alt="Gedung Sekolah"
-                    class="img-fluid shadow visimisi-img animate__animated animate__fadeInLeft">
+        <div class="row g-4 row-cols-1 row-cols-md-2">
+            <!-- Visi -->
+            <div class="col animate__animated animate__fadeInLeft">
+                <div class="visimisi-box">
+                    <h4 class="visimisi-title">Visi</h4>
+                    <div class="visimisi-content">
+                        @if($visi)
+                            {!! $visi->content !!}
+                        @else
+                            <span class="fst-italic text-muted">Belum ada data visi sekolah yang tersedia</span>
+                        @endif
+                    </div>
+                </div>
             </div>
 
-            <!-- Teks visimisi -->
-            <div class="col-md-6">
-                <h4 class="fw-bold animate__animated animate__fadeInUp">Visi</h4>
-                <p class="text-muted animate__animated animate__fadeInUp animate__delay-1s">
-                    @if($visi)
-                        {!! $visi->content !!}
-                    @else
-                        <span class="fst-italic">Belum ada data visi sekolah yang tersedia</span>
-                    @endif
-                </p>
-                <h4 class="fw-bold animate__animated animate__fadeInUp">Misi</h4>
-                <p class="text-muted animate__animated animate__fadeInUp animate__delay-1s">
-                    @if($misi)
-                        {!! $misi->content !!}
-                    @else
-                        <span class="fst-italic">Belum ada data misi sekolah yang tersedia</span>
-                    @endif
-                </p>
+            <!-- Misi -->
+            <div class="col animate__animated animate__fadeInRight">
+                <div class="visimisi-box">
+                    <h4 class="visimisi-title">Misi</h4>
+                    <div class="visimisi-content">
+                        @if($misi)
+                            {!! $misi->content !!}
+                        @else
+                            <span class="fst-italic text-muted">Belum ada data misi sekolah yang tersedia</span>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
+@include('viewpublik.layouts.whatsapp')
 @include('viewpublik/layouts/footer')
 
-<!-- script dropdown -->
+<!-- Script -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

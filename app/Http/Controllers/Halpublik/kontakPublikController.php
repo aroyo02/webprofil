@@ -4,17 +4,14 @@ namespace App\Http\Controllers\Halpublik;
 
 use App\Http\Controllers\Controller;
 use App\Models\SchoolProfile;
-use App\Models\SaranaPrasarana;
 use App\Models\Contact;
-use Illuminate\Http\Request;
 
-class SarprasPublikController extends Controller
+class kontakPublikController extends Controller
 {
     public function index()
     {
         $profil = SchoolProfile::first();
-        $data = SaranaPrasarana::all();
         $kontak = Contact::first(); 
-        return view('viewpublik.halaman.saranaprasarana', compact('profil','data','kontak'));
+        return view('viewpublik.halaman.kontak', compact('profil','kontak'));
     }
 }

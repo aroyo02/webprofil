@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\EkstrakurikulerController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\SiswaGuruController;
+use App\Http\Controllers\Admin\ContactController;
 
 // Publik controllers
 use App\Http\Controllers\Halpublik\DashboardPublikController;
@@ -25,6 +26,7 @@ use App\Http\Controllers\Halpublik\DaftarGuruPublikController;
 use App\Http\Controllers\Halpublik\SarprasPublikController;
 use App\Http\Controllers\Halpublik\GaleriPublikController;
 use App\Http\Controllers\Halpublik\BeritaPublikController;
+use App\Http\Controllers\Halpublik\kontakPublikController;
 
 
 // Halaman publik
@@ -38,9 +40,7 @@ Route::get('/saranaprasarana', [SarprasPublikController::class, 'index'])->name(
 Route::get('/galeri', [GaleriPublikController::class, 'index'])->name('galeri');
 Route::get('/berita', [BeritaPublikController::class, 'index'])->name('berita.publik');
 Route::get('/berita/{id}', [BeritaPublikController::class, 'show'])->name('berita.showpublik');
-Route::get('/kontak', function () {
-    return view('viewpublik.halaman.kontak');
-});
+Route::get('/kontak', [kontakPublikController::class, 'index'])->name('kontak.publik');
 
 
 
@@ -129,10 +129,15 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::put('guru/{id}', [SiswaGuruController::class, 'updateGuru'])->name('guru.update');
     Route::delete('guru/{id}', [SiswaGuruController::class, 'destroyGuru'])->name('guru.destroy');
 
-});
+    // Kontak Sekolah
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::get('/contact/create', [ContactController::class, 'create'])->name('contact.create'); // untuk create dan edit
+    Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
+    Route::put('/contact/{id}', [ContactController::class, 'update'])->name('contact.update');
+    Route::delete('/contact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
 
-Route::get('/profilsekolah', [SchoolProfilPublikController::class, 'index'])->name('profilsekolah');
-Route::get('/', [DashboardPublikController::class, 'index'])->name('dashboardpublik');
+
+});
 
 
 require __DIR__.'/auth.php';

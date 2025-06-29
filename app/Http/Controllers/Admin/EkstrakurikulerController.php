@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 Use App\Http\Controllers\Controller;
+use App\Models\SchoolProfile;
 use App\Models\Ekstrakurikuler;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -11,8 +12,9 @@ class EkstrakurikulerController extends Controller
 {
     public function index()
     {
+        $profilSekolah = SchoolProfile::first();
         $ekstrakurikulers = Ekstrakurikuler::all();
-        return view('admin.ekstrakurikuler.index', compact('ekstrakurikulers'));
+        return view('admin.ekstrakurikuler.index', compact('profilSekolah','ekstrakurikulers'));
     }
 
     public function create()

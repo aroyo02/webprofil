@@ -112,4 +112,53 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 @endpush
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if(session('success'))
+<script>
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: "{{ session('success') }}",
+        background: '#006400',
+        color: '#ffffff',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+</script>
+@endif
+
+@if(session('deleted'))
+<script>
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'error',
+        title: "{{ session('deleted') }}",
+        background: '#721c24',
+        color: '#ffffff',      
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+</script>
+@endif
+
+@if(session('updated'))
+<script>
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'info',
+        title: "{{ session('updated') }}",
+        background: '#000080',
+        color: '#ffffff',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+    });
+</script>
+@endif
 @endsection

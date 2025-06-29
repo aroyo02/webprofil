@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 Use App\Http\Controllers\Controller;
+use App\Models\SchoolProfile;
 use App\Models\Galeri;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -11,8 +12,9 @@ class GaleriController extends Controller
 {
     public function index()
     {
+        $profilSekolah = SchoolProfile::first();
         $galeris = Galeri::latest()->get();
-        return view('admin.galeri.index', compact('galeris'));
+        return view('admin.galeri.index', compact('profilSekolah','galeris'));
     }
 
     public function create()

@@ -11,6 +11,10 @@
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     <style>
+         body {
+            padding-top: 50px;
+        }
+        
         .card-berita {
             border: none;
             transition: all 0.3s ease;
@@ -66,6 +70,7 @@
     </div>
 </div>
 
+@include('viewpublik.layouts.whatsapp')
 @include('viewpublik/layouts/footer')
 
 <!-- JS -->

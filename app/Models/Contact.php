@@ -5,15 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SchoolProfile extends Model
+class Contact extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'content',
-        'logo',
-        'banner',
-        'foto_profil',
-        'motto',
+        'alamat', 'jam_operasional', 'telepon', 'email', 'maps_embed'
     ];
 }

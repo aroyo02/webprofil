@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\SchoolProfile;
 use App\Models\StrukturOrganisasi;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,8 +12,9 @@ class StrukturOrganisasiController extends Controller
 {
     public function index()
     {
+        $profilSekolah = SchoolProfile::first();
         $struktur = StrukturOrganisasi::first();
-        return view('admin.strukturorganisasi.index', compact('struktur'));
+        return view('admin.strukturorganisasi.index', compact('profilSekolah','struktur'));
     }
 
     public function store(Request $request)
