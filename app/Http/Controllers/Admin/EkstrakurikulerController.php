@@ -49,8 +49,9 @@ class EkstrakurikulerController extends Controller
 
     public function edit($id)
     {
+        $profilSekolah = SchoolProfile::first();
         $ekstrakurikuler = Ekstrakurikuler::findOrFail($id);
-        return view('admin.ekstrakurikuler.create', compact('ekstrakurikuler'));
+        return view('admin.ekstrakurikuler.create', compact('profilSekolah','ekstrakurikuler'));
     }
 
 

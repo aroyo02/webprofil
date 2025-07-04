@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Galeri extends Model
 {
-    protected $fillable = ['file', 'tipe'];
+    protected $fillable = ['judul', 'file', 'tipe'];
 }

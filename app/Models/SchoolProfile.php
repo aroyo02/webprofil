@@ -11,9 +11,11 @@ class SchoolProfile extends Model
 
     protected $fillable = [
         'content',
+        'sambutan_kepsek',
         'logo',
         'banner',
         'foto_profil',
+        'foto_kepala_sekolah',
         'motto',
     ];
 }

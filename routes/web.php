@@ -12,9 +12,11 @@ use App\Http\Controllers\Admin\StrukturOrganisasiController;
 use App\Http\Controllers\Admin\SaranaPrasaranaController;
 use App\Http\Controllers\Admin\GaleriController;
 use App\Http\Controllers\Admin\EkstrakurikulerController;
+use App\Http\Controllers\Admin\PrestasiController;
 use App\Http\Controllers\Admin\BeritaController;
 use App\Http\Controllers\Admin\SiswaGuruController;
 use App\Http\Controllers\Admin\ContactController;
+use App\Http\Controllers\Admin\GaleriPustakaController;
 
 // Publik controllers
 use App\Http\Controllers\Halpublik\DashboardPublikController;
@@ -22,11 +24,13 @@ use App\Http\Controllers\Halpublik\SchoolProfilPublikController;
 use App\Http\Controllers\Halpublik\VisiMisiPublikController;
 use App\Http\Controllers\Halpublik\StrukturOrganisasiPublikController;
 use App\Http\Controllers\Halpublik\EkstrakurikulerPublikController;
+use App\Http\Controllers\Halpublik\PrestasiPublikController;
 use App\Http\Controllers\Halpublik\DaftarGuruPublikController;
 use App\Http\Controllers\Halpublik\SarprasPublikController;
 use App\Http\Controllers\Halpublik\GaleriPublikController;
 use App\Http\Controllers\Halpublik\BeritaPublikController;
 use App\Http\Controllers\Halpublik\kontakPublikController;
+use App\Http\Controllers\Halpublik\GaleriPustakaPublikController;
 
 
 // Halaman publik
@@ -35,12 +39,14 @@ Route::get('/profilsekolah', [SchoolProfilPublikController::class, 'index'])->na
 Route::get('/visimisi', [VisiMisiPublikController::class, 'index'])->name('visimisi');
 Route::get('/struktur-organisasi', [StrukturOrganisasiPublikController::class, 'index'])->name('strukturorganisasi');
 Route::get('/ekstrakurikuler', [EkstrakurikulerPublikController::class, 'index'])->name('ekskul');
+Route::get('/prestasi', [PrestasiPublikController::class, 'index'])->name('prestasi');
 Route::get('/daftarguru', [DaftarGuruPublikController::class, 'index'])->name('daftarguru');
 Route::get('/saranaprasarana', [SarprasPublikController::class, 'index'])->name('sarpras');
 Route::get('/galeri', [GaleriPublikController::class, 'index'])->name('galeri');
 Route::get('/berita', [BeritaPublikController::class, 'index'])->name('berita.publik');
 Route::get('/berita/{id}', [BeritaPublikController::class, 'show'])->name('berita.showpublik');
 Route::get('/kontak', [kontakPublikController::class, 'index'])->name('kontak.publik');
+Route::get('/galeripustaka', [GaleriPustakaPublikController::class, 'index'])->name('galeripustakapublik');
 
 
 
@@ -95,11 +101,22 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::put('/saranaprasarana/{id}', [SaranaPrasaranaController::class, 'update'])->name('saranaprasarana.update');
     Route::delete('/saranaprasarana/{id}', [SaranaPrasaranaController::class, 'destroy'])->name('saranaprasarana.destroy');
 
+    //prestasi
+    Route::get('/prestasi/create', [PrestasiController::class, 'create'])->name('prestasi.create');
+    Route::post('/prestasi', [PrestasiController::class, 'store'])->name('prestasi.store');
+    Route::get('/prestasi', [PrestasiController::class, 'index'])->name('prestasi.index');
+    Route::get('/prestasi/{id}/edit', [PrestasiController::class, 'edit'])->name('prestasi.edit');
+    Route::put('/prestasi/{id}', [PrestasiController::class, 'update'])->name('prestasi.update');
+    Route::delete('/prestasi/{id}', [PrestasiController::class, 'destroy'])->name('prestasi.destroy');
+
     // Galeri
     Route::get('/galeri/create', [GaleriController::class, 'create'])->name('galeri.create');    
     Route::post('/galeri', [GaleriController::class, 'store'])->name('galeri.store');            
     Route::get('/galeri', [GaleriController::class, 'index'])->name('galeri.index');              
     Route::delete('/galeri/{id}', [GaleriController::class, 'destroy'])->name('galeri.destroy');
+    Route::get('/galeri/{id}/edit', [GaleriController::class, 'edit'])->name('galeri.edit');
+    Route::put('/galeri/{id}', [GaleriController::class, 'update'])->name('galeri.update');
+
     
     // ektrakurikuler
     Route::get('/ekstrakurikuler/create', [EkstrakurikulerController::class, 'create'])->name('ekstrakurikuler.create');
@@ -136,6 +153,13 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::put('/contact/{id}', [ContactController::class, 'update'])->name('contact.update');
     Route::delete('/contact/{id}', [ContactController::class, 'destroy'])->name('contact.destroy');
 
+    // Galeri pustaka
+    Route::get('galeripustaka', [GaleriPustakaController::class, 'index'])->name('galeripustaka.index');
+    Route::get('galeripustaka/create', [GaleriPustakaController::class, 'create'])->name('galeripustaka.create');
+    Route::post('galeripustaka', [GaleriPustakaController::class, 'store'])->name('galeripustaka.store');
+    Route::get('galeripustaka/{id}/edit', [GaleriPustakaController::class, 'edit'])->name('galeripustaka.edit');
+    Route::put('galeripustaka/{id}', [GaleriPustakaController::class, 'update'])->name('galeripustaka.update');
+    Route::delete('galeripustaka/{id}', [GaleriPustakaController::class, 'destroy'])->name('galeripustaka.destroy');
 
 });
 

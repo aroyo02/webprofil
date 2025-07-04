@@ -11,10 +11,10 @@
     <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
     <style>
-         body {
+        body {
             padding-top: 50px;
         }
-        
+
         .card-berita {
             border: none;
             transition: all 0.3s ease;
@@ -53,8 +53,16 @@
 <div class="container py-5">
     <h2 class="fw-bold text-center mb-4" data-aos="fade-up">Berita Terbaru</h2>
 
+    <!-- Form Pencarian -->
+    <form method="GET" action="{{ route('berita.publik') }}" class="d-flex justify-content-center mb-5">
+        <div class="input-group" style="max-width: 400px;">
+            <input type="text" name="search" class="form-control" placeholder="Cari berita..." value="{{ request('search') }}">
+            <button class="btn btn-primary" type="submit">Cari</button>
+        </div>
+    </form>
+
     <div class="row g-4">
-        @foreach ($beritas as $berita)
+        @forelse ($beritas as $berita)
         <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
             <a href="{{ route('berita.showpublik', $berita->id) }}" class="text-decoration-none">
                 <div class="card card-berita">
@@ -66,7 +74,11 @@
                 </div>
             </a>
         </div>
-        @endforeach
+        @empty
+        <div class="col-12">
+            <p class="text-center text-muted">Tidak ada berita ditemukan.</p>
+        </div>
+        @endforelse
     </div>
 </div>
 

@@ -10,11 +10,23 @@ use Illuminate\Http\Request;
 
 class SarprasPublikController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $profil = SchoolProfile::first();
-        $data = SaranaPrasarana::all();
-        $kontak = Contact::first(); 
-        return view('viewpublik.halaman.saranaprasarana', compact('profil','data','kontak'));
+        $kontak = Contact::first();
+
+        // Ambil keyword pencarian jika ada
+        $search = $request->input('search');
+
+        // Query data sarpras
+        $query = SaranaPrasarana::query();
+
+        if (!empty($search)) {
+            $query->where('nama', 'like', '%' . $search . '%');
+        }
+
+        $data = $query->get();
+
+        return view('viewpublik.halaman.saranaprasarana', compact('profil', 'data', 'kontak'));
     }
 }

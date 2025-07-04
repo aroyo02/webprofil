@@ -85,9 +85,10 @@ class SiswaGuruController extends Controller
 
     public function editGuru($id)
     {
+        $profilSekolah = SchoolProfile::first();
         $guru = Guru::findOrFail($id);
         $siswa = Siswa::first();
-        return view('admin.siswaguru.create', compact('guru', 'siswa'));
+        return view('admin.siswaguru.create', compact('profilSekolah','guru', 'siswa'));
     }
 
     public function updateGuru(Request $request, $id)

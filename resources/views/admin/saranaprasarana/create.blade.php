@@ -49,6 +49,8 @@
                 class="form-control @error('gambar') is-invalid @enderror" 
                 id="gambar" 
                 name="gambar" 
+                accept="image/*"
+                onchange="previewGambar(event)"
                 {{ isset($item) ? '' : 'required' }}
             >
             @error('gambar')
@@ -58,68 +60,82 @@
             @enderror
         </div>
 
-        @if(isset($item) && $item->gambar)
-            <div class="mb-3">
-                <p>Gambar Saat Ini:</p>
-                <img src="{{ asset('storage/' . $item->gambar) }}" alt="Gambar Sarana" style="max-height: 200px; border: 1px solid #ccc;">
-            </div>
-        @endif
+        <div class="mb-3" id="previewContainer" style="display: {{ isset($item) && $item->gambar ? 'block' : 'none' }}">
+            <p>Preview Gambar:</p>
+            <img id="previewImage" 
+                 src="{{ isset($item) && $item->gambar ? asset('storage/' . $item->gambar) : '' }}" 
+                 alt="Preview Gambar" 
+                 style="max-height: 200px; border: 1px solid #ccc;">
+        </div>
+
+        <div class="mb-3">
+            <label for="deskripsi" class="form-label">Deskripsi <span class="text-danger">*</span></label>
+            <textarea name="deskripsi" id="summernote" class="form-control @error('deskripsi') is-invalid @enderror" rows="4">
+                {{ old('deskripsi', $item->deskripsi ?? '') }}
+            </textarea>
+            @error('deskripsi')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
 
         <button type="submit" class="btn btn-primary">
             {{ isset($item) ? 'Update' : 'Tambah' }}
         </button>
-
-        <a href="{{ route('admin.saranaprasarana.index') }}"></a>
     </form>
 </div>
 
+{{-- SweetAlert --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if(session('success'))
 <script>
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'success',
-        title: "{{ session('success') }}",
-        background: '#006400',
-        color: '#ffffff',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-    });
+    Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: "{{ session('success') }}", background: '#006400', color: '#ffffff', showConfirmButton: false, timer: 3000, timerProgressBar: true });
 </script>
 @endif
 
 @if(session('deleted'))
 <script>
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'error',
-        title: "{{ session('deleted') }}",
-        background: '#721c24',
-        color: '#ffffff',      
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-    });
+    Swal.fire({ toast: true, position: 'top-end', icon: 'error', title: "{{ session('deleted') }}", background: '#721c24', color: '#ffffff', showConfirmButton: false, timer: 3000, timerProgressBar: true });
 </script>
 @endif
 
 @if(session('updated'))
 <script>
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'info',
-        title: "{{ session('updated') }}",
-        background: '#000080',
-        color: '#ffffff',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-    });
+    Swal.fire({ toast: true, position: 'top-end', icon: 'info', title: "{{ session('updated') }}", background: '#000080', color: '#ffffff', showConfirmButton: false, timer: 3000, timerProgressBar: true });
 </script>
 @endif
+
+{{-- Summernote --}}
+@push('scripts')
+<script>
+    $('#summernote').summernote({
+            placeholder: 'Tulis deskripsi di sini...',
+            tabsize: 2,
+            height: 300,
+            tabDisable: true,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link',]],
+                ['view', ['fullscreen', 'help']]
+            ]
+        });
+
+    function previewGambar(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const imgPreview = document.getElementById('previewImage');
+            const container = document.getElementById('previewContainer');
+            imgPreview.src = URL.createObjectURL(file);
+            container.style.display = 'block';
+        }
+    }
+</script>
+@endpush
 @endsection

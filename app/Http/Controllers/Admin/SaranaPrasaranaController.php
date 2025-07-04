@@ -32,6 +32,7 @@ class SaranaPrasaranaController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'gambar' => 'required|image|mimes:jpg,jpeg,png|max:3000',
+            'deskripsi' => 'required|string',
         ]);
 
         $gambarPath = $request->file('gambar')->store('saranaprasarana', 'public');
@@ -39,6 +40,7 @@ class SaranaPrasaranaController extends Controller
         SaranaPrasarana::create([
             'nama' => $request->nama,
             'gambar' => $gambarPath,
+            'deskripsi' => $request->deskripsi,
         ]);
 
         return redirect()->route('admin.saranaprasarana.create')->with('success', 'Data berhasil ditambahkan!');
@@ -47,8 +49,9 @@ class SaranaPrasaranaController extends Controller
     // Menampilkan form edit
     public function edit($id)
     {
+        $profilSekolah = SchoolProfile::first();
         $item = SaranaPrasarana::findOrFail($id);
-        return view('admin.saranaprasarana.create', compact('item'));
+        return view('admin.saranaprasarana.create', compact('profilSekolah', 'item'));
     }
 
     // Memperbarui data lama
@@ -59,9 +62,13 @@ class SaranaPrasaranaController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'gambar' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'deskripsi' => 'required|string',
         ]);
 
-        $data = ['nama' => $request->nama];
+        $data = [
+            'nama' => $request->nama,
+            'deskripsi' => $request->deskripsi,
+        ];
 
         if ($request->hasFile('gambar')) {
             // Hapus gambar lama jika ada

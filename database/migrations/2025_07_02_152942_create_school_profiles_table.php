@@ -12,6 +12,8 @@ return new class extends Migration {
             $table->string('logo')->nullable();
             $table->string('banner')->nullable();
             $table->string('foto_profil')->nullable();
+            $table->string('foto_kepala_sekolah')->nullable(); 
+            $table->text('sambutan_kepsek')->nullable(); 
             $table->string('motto')->nullable();
             $table->longText('content')->nullable();
             $table->timestamps();

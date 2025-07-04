@@ -4,12 +4,6 @@
 <div class="container mt-4">
     <h2 class="mb-4">Informasi Kontak</h2>
 
-    @if(session('success'))
-        <div class="alert alert-success">
-            {{ session('success') }}
-        </div>
-    @endif
-
     @if ($kontak)
         <div class="card mb-4">
             <div class="card-body">
@@ -38,13 +32,12 @@
 
                 <!-- Tombol Edit dan Hapus -->
                 <div class="d-flex justify-content-between flex-wrap mt-4">
-                    <a href="{{ route('admin.contact.create') }}" class="btn btn-warning">Edit Kontak</a>
-
                     <form action="{{ route('admin.contact.destroy', $kontak->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus data kontak ini?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger">Hapus Kontak</button>
                     </form>
+                    <a href="{{ route('admin.contact.create') }}" class="btn btn-warning">Edit Kontak</a>
                 </div>
             </div>
         </div>

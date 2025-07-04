@@ -57,6 +57,10 @@
 
         .hero-section p.lead {
             font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.6;
+            word-break: break-word;
         }
 
         .transisi {
@@ -149,6 +153,12 @@
         color: #ffc107;
     }
 
+    #beritaScroll {
+    scroll-behavior: smooth;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
 
     </style>
 </head>
@@ -196,6 +206,9 @@
                     @else
                         <span class="fst-italic">Belum ada data profil sekolah yang tersedia.</span>
                     @endif
+                    <a href="{{ route('profilsekolah') }}" class="btn btn-outline-primary mt-3">
+                        Lihat Selengkapnya →
+                    </a>
                 </p>
             </div>
         </div>
@@ -326,11 +339,11 @@
 
         <!-- Tombol navigasi scroll -->
         <button onclick="scrollBerita('left')" 
-        class="btn btn-primary position-absolute top-50 translate-middle-y z-1"style="left: 5rem;">&lt;
+        class="btn btn-primary position-absolute top-50 translate-middle-y z-1"style="left: 1rem;">&lt;
         </button>
 
         <button onclick="scrollBerita('right')" 
-        class="btn btn-primary position-absolute top-50 translate-middle-y z-1" style="right: 5rem;">&gt;
+        class="btn btn-primary position-absolute top-50 translate-middle-y z-1" style="right: 1rem;">&gt;
         </button>
 
 
@@ -469,6 +482,20 @@
         }
     </script>
 
+<script>
+    // Scroll otomatis berita setiap 5 detik
+    setInterval(() => {
+        const container = document.getElementById('beritaScroll');
+        const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+        // Jika sudah sampai akhir, kembali ke awal
+        if (container.scrollLeft >= maxScrollLeft) {
+            container.scrollTo({ left: 0, behavior: 'smooth' });
+        } else {
+            container.scrollBy({ left: 300, behavior: 'smooth' });
+        }
+    }, 5000); // ganti angka untuk jeda waktu scroll (5000ms = 5 detik)
+</script>
 
 </body>
 </html>

@@ -19,7 +19,7 @@
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-      background-color: #ffff; /* Warna card */
+      background-color: #ffff;
     }
     .image-side img {
       object-fit: cover;
@@ -31,7 +31,7 @@
     }
     .form-side h2 {
       margin-bottom: 1.5rem;
-      color: #000000; /* Warna teks heading */
+      color: #000000;
     }
     .btn-custom {
       background-color: #ffc107;
@@ -50,7 +50,7 @@
 
 <div class="card login-card">
   <div class="row g-0">
-    <!-- Gambar dengan <img src> -->
+    <!-- Gambar -->
     <div class="col-md-6 image-side d-none d-md-block">
       <img src="{{ asset('gambar/login.jpeg') }}" alt="Login Image" />
     </div>
@@ -58,18 +58,32 @@
     <!-- Form Side -->
     <div class="col-md-6 form-side">
       <h2 class="text-center">Welcome Admin</h2>
-        <form method="POST" action="{{ route('login') }}">
-            @csrf
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control rounded-pill" id="email" name="email" placeholder="Enter email" required autofocus />
-            </div>
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control rounded-pill" id="password" name="password" placeholder="Password" required />
-            </div>
-            <button type="submit" class="btn btn-custom w-100 rounded-pill">Login</button>
-        </form>
+
+      {{-- Error Login --}}
+      @if ($errors->has('login'))
+        <div class="alert alert-danger rounded-pill text-center">
+          {{ $errors->first('login') }}
+        </div>
+      @endif
+
+      <form method="POST" action="{{ route('login') }}">
+        @csrf
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control rounded-pill" id="email" name="email" placeholder="Enter email" required autofocus />
+          @error('email')
+            <small class="text-danger">{{ $message }}</small>
+          @enderror
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control rounded-pill" id="password" name="password" placeholder="Password" required />
+          @error('password')
+            <small class="text-danger">{{ $message }}</small>
+          @enderror
+        </div>
+        <button type="submit" class="btn btn-custom w-100 rounded-pill">Login</button>
+      </form>
     </div>
   </div>
 </div>

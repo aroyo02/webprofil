@@ -40,6 +40,7 @@
             @error('telepon')
                 <div class="invalid-feedback">{{ $message }}</div>
             @enderror
+            <div class="form-text">Masukkan nomor telepon dengan kode 62 tanpa +</div>
         </div>
 
         <!-- Email -->
@@ -86,7 +87,9 @@
         @endif
 
 
-        <button type="submit" class="btn btn-primary">{{ $kontak ? 'Update' : 'Simpan' }}</button>
+        <div class="text-end">
+            <button type="submit" class="btn btn-primary">{{ $kontak ? 'Update' : 'Simpan' }}</button>
+        </div>
     </form>
 </div>
 
@@ -108,7 +111,7 @@
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview']]
+                ['view', ['fullscreen']]
             ]
         });
     });

@@ -102,6 +102,7 @@
   </section>
 
   <!-- Modal Zoom -->
+@if ($struktur?->image)
   <div class="modal fade" id="gambarModal" tabindex="-1" aria-labelledby="gambarModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -109,13 +110,15 @@
           <div class="modal-img-wrapper">
             <!-- Tombol Close -->
             <button type="button" class="modal-close-btn" data-bs-dismiss="modal" aria-label="Close">&times;</button>
-            <img src="{{ asset('storage/' . $struktur->image ?? '') }}" alt="Struktur Organisasi"
+            <img src="{{ asset('storage/' . $struktur->image) }}" alt="Struktur Organisasi"
                  class="modal-img" id="zoomableImage">
           </div>
         </div>
       </div>
     </div>
   </div>
+@endif
+
 
   @include('viewpublik.layouts.whatsapp')
   @include('viewpublik/layouts/footer')

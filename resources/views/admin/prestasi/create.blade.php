@@ -1,7 +1,7 @@
 @extends('admin.layout.navbar')
 
 @section('content')
-<h1>Tambah Ekstrakurikuler</h1>
+<h1>{{ isset($prestasi) ? 'Edit Prestasi' : 'Tambah Prestasi' }}</h1>
 
 {{-- Notifikasi Error & Sukses --}}
 @if($errors->any())
@@ -14,35 +14,36 @@
     </div>
 @endif
 
-<form action="{{ isset($ekstrakurikuler) ? route('admin.ekstrakurikuler.update', $ekstrakurikuler->id) : route('admin.ekstrakurikuler.store') }}" method="POST" enctype="multipart/form-data">
+<form action="{{ isset($prestasi) ? route('admin.prestasi.update', $prestasi->id) : route('admin.prestasi.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
-    @if(isset($ekstrakurikuler))
+    @if(isset($prestasi))
         @method('PUT')
     @endif
 
     <div class="mb-3">
-        <label for="nama" class="form-label">Nama Ekstrakurikuler</label>
-        <input type="text" name="nama" class="form-control" value="{{ old('nama', $ekstrakurikuler->nama ?? '') }}" required>
+        <label for="judul" class="form-label">Judul Prestasi</label>
+        <input type="text" name="judul" class="form-control" value="{{ old('judul', $prestasi->judul ?? '') }}" required>
     </div>
+
     <div class="mb-3">
         <label for="deskripsi" class="form-label">Deskripsi</label>
-        <textarea name="deskripsi" id="summernote" class="form-control" rows="3">{{ old('deskripsi', $ekstrakurikuler->deskripsi ?? '') }}</textarea>
+        <textarea name="deskripsi" id="summernote" class="form-control" rows="3">{{ old('deskripsi', $prestasi->deskripsi ?? '') }}</textarea>
     </div>
+
     <div class="mb-3">
-        <label for="logo" class="form-label">Logo</label>
-        <input type="file" name="logo" class="form-control">
-        @if(isset($ekstrakurikuler) && $ekstrakurikuler->logo)
-            <img src="{{ asset('storage/' . $ekstrakurikuler->logo) }}" class="img-thumbnail mt-2" style="max-height: 100px;">
+        <label for="gambar" class="form-label">Gambar</label>
+        <input type="file" name="gambar" class="form-control">
+        @if(isset($prestasi) && $prestasi->gambar)
+            <img src="{{ asset('storage/' . $prestasi->gambar) }}" class="img-thumbnail mt-2" style="max-height: 100px;">
         @endif
     </div>
 
-    <button type="submit" class="btn btn-primary">{{ isset($ekstrakurikuler) ? 'Update' : 'Simpan' }}</button>
+    <button type="submit" class="btn btn-primary">{{ isset($prestasi) ? 'Update' : 'Simpan' }}</button>
 </form>
 
 @push('scripts')
 <script>
-    $(document).ready(function() {
-        $('#summernote').summernote({
+    $('#summernote').summernote({
             placeholder: 'Tulis deskripsi di sini...',
             tabsize: 2,
             height: 300,
@@ -58,10 +59,10 @@
                 ['view', ['fullscreen', 'help']]
             ]
         });
-    });
 </script>
 @endpush
 
+{{-- SweetAlert --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if(session('success'))

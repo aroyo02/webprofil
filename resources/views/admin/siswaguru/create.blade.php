@@ -2,6 +2,7 @@
 
 @section('content')
 <div class="container mt-4">
+
     {{-- Notifikasi Error Validasi --}}
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -21,9 +22,16 @@
         <div class="card-body">
             <form id="form-siswa" action="{{ route('admin.siswa.store') }}" method="POST">
                 @csrf
-                    <input type="hidden" name="simpan_semua" id="simpan_semua_siswa" value="0">
+                <input type="hidden" name="simpan_semua" id="simpan_semua_siswa" value="0">
+
+                <div class="mb-3">
+                    <label for="jumlah_siswa" class="form-label">Jumlah Siswa</label>
                     <input type="number" name="jumlah_siswa" id="jumlah_siswa" class="form-control" required value="{{ old('jumlah_siswa', $siswa->jumlah_siswa ?? '') }}">
-                <button type="submit" class="btn btn-primary">Simpan Jumlah Siswa</button>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">Simpan Jumlah Siswa</button>
+                </div>
             </form>
         </div>
     </div>
@@ -39,7 +47,9 @@
                 @if(isset($guru))
                     @method('PUT')
                 @endif
+
                 <input type="hidden" name="simpan_semua" id="simpan_semua_guru" value="0">
+
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama Guru</label>
                     <input type="text" name="nama" id="nama" class="form-control" required value="{{ old('nama', $guru->nama ?? '') }}">
@@ -67,12 +77,14 @@
             </form>
         </div>
     </div>
+
     {{-- Tombol Simpan Semua --}}
     <div class="text-end mt-4">
         <button id="btn-simpan-semua" class="btn btn-primary" disabled>Simpan Semua Data</button>
     </div>
 </div>
 
+{{-- Script Validasi dan Submit Bersamaan --}}
 @push('scripts')
 <script>
 document.addEventListener("DOMContentLoaded", function () {
@@ -96,69 +108,69 @@ document.addEventListener("DOMContentLoaded", function () {
     keteranganGuru.addEventListener('input', checkForms);
     gambarGuru.addEventListener('change', checkForms);
 
-    // Trigger saat halaman dimuat
     checkForms();
 
     btnSimpanSemua.addEventListener('click', function () {
-    document.getElementById('simpan_semua_siswa').value = 1;
-    document.getElementById('simpan_semua_guru').value = 1;
+        document.getElementById('simpan_semua_siswa').value = 1;
+        document.getElementById('simpan_semua_guru').value = 1;
 
-    document.getElementById('form-siswa').submit();
-    setTimeout(() => {
-        document.getElementById('form-guru').submit();
-    }, 500);
+        document.getElementById('form-siswa').submit();
+        setTimeout(() => {
+            document.getElementById('form-guru').submit();
+        }, 500);
     });
 });
 </script>
 @endpush
 
+{{-- SweetAlert Feedback --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 @if(session('success'))
 <script>
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'success',
-        title: "{{ session('success') }}",
-        background: '#006400',
-        color: '#ffffff',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-    });
+Swal.fire({
+    toast: true,
+    position: 'top-end',
+    icon: 'success',
+    title: "{{ session('success') }}",
+    background: '#006400',
+    color: '#ffffff',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+});
 </script>
 @endif
 
 @if(session('deleted'))
 <script>
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'error',
-        title: "{{ session('deleted') }}",
-        background: '#721c24',
-        color: '#ffffff',      
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-    });
+Swal.fire({
+    toast: true,
+    position: 'top-end',
+    icon: 'error',
+    title: "{{ session('deleted') }}",
+    background: '#721c24',
+    color: '#ffffff',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+});
 </script>
 @endif
 
 @if(session('updated'))
 <script>
-    Swal.fire({
-        toast: true,
-        position: 'top-end',
-        icon: 'info',
-        title: "{{ session('updated') }}",
-        background: '#000080',
-        color: '#ffffff',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-    });
+Swal.fire({
+    toast: true,
+    position: 'top-end',
+    icon: 'info',
+    title: "{{ session('updated') }}",
+    background: '#000080',
+    color: '#ffffff',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+});
 </script>
 @endif
 @endsection

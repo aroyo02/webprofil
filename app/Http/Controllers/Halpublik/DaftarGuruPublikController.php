@@ -10,11 +10,19 @@ use Illuminate\Http\Request;
 
 class DaftarGuruPublikController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $profil = SchoolProfile::first();
-        $guru = Guru::all();
-        $kontak = Contact::first(); 
-        return view('viewpublik.halaman.daftarguru', compact('profil','guru','kontak'));
+        $kontak = Contact::first();
+
+        $query = Guru::query();
+        if ($request->has('search') && $request->search != '') {
+            $query->where('nama', 'like', '%' . $request->search . '%')
+                  ->orWhere('keterangan', 'like', '%' . $request->search . '%');
+        }
+
+        $guru = $query->latest()->get(); // tanpa pagination
+
+        return view('viewpublik.halaman.daftarguru', compact('profil', 'guru', 'kontak'));
     }
 }

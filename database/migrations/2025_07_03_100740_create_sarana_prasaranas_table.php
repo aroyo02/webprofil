@@ -15,10 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->string('gambar')->nullable();
+            $table->text('deskripsi')->nullable();
             $table->timestamps();
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down()
     {
         Schema::dropIfExists('sarana_prasaranas');

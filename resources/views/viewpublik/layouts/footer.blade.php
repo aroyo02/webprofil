@@ -42,6 +42,7 @@
                     <li><a href="{{ route('visimisi') }}">Visi Misi</a></li>
                     <li><a href="{{ route('strukturorganisasi') }}">Struktur Organisasi</a></li>
                     <li><a href="{{ route('daftarguru') }}">Daftar Guru</a></li>
+                    <li><a href="{{ route('sarpras') }}">Sarana Prasarana</a></li>
                 </ul>
             </div>
 
@@ -50,8 +51,9 @@
                 <h5 class="fw-bold">Informasi</h5>
                 <ul class="list-unstyled">
                     <li><a href="{{ route('ekskul') }}">Ekstrakurikuler</a></li>
-                    <li><a href="{{ route('sarpras') }}">Sarana Prasarana</a></li>
-                    <li><a href="{{ route('galeri') }}">Galeri</a></li>
+                    <li><a href="{{ route('prestasi') }}">Prestasi</a></li>
+                    <li><a href="{{ route('galeri') }}">Galeri Kegiatan</a></li>
+                    <li><a href="{{ route('galeripustakapublik') }}">Galeri Pustaka</a></li>
                     <li><a href="{{ route('berita.publik') }}">Berita</a></li>
                 </ul>
             </div>
@@ -60,9 +62,9 @@
             <div class="col-12 col-lg-3 mb-4">
                 <h5 class="fw-bold">Kontak</h5>
                 <ul class="list-unstyled">
-                    <li>Jl. Veteran, Kutorejo, Jetis, Kec. Sukoharjo, Kab. Sukoharjo, Jawa Tengah 57511</li>
-                    <li>Email: <a class="text-white">sdn1wirasaba@gmail.com</a></li>
-                    <li>Telp: 0854621359745</li>
+                    <li> {{ $kontak->alamat ?? 'Alamat belum tersedia' }}</li>
+                    <li>Email: <a class="text-white">{{ $kontak->email ?? '-' }}</a></li>
+                    <li>Telp: {{ $kontak->telepon ?? '-' }}</li>
                 </ul>
             </div>
         </div>

@@ -66,7 +66,7 @@
 
 <body>
 
-  @include('viewpublik/layouts/navbar')
+  @include('viewpublik.layouts.navbar')
 
   <section class="teacher-section">
     <div class="container text-center">
@@ -75,22 +75,37 @@
         Berikut merupakan daftar guru dan staf yang ada di SD Negeri 1 Wirasaba
       </p>
 
-      <div class="row mt-5 g-4">
-        @foreach($guru as $guru)
-        <div class="col-lg-3 col-md-4 col-sm-6 col-12" data-aos="zoom-in" data-aos-duration="800">
-          <div class="teacher-card h-100">
-            <img src="{{ asset('storage/' . $guru->gambar) }}" class="teacher-img" alt="{{ $guru->nama }}">
-            <h5 class="teacher-name">{{ $guru->nama }}</h5>
-            <p class="teacher-role">{{ $guru->keterangan }}</p>
+      <!-- Form Pencarian -->
+      <form method="GET" action="{{ route('daftarguru') }}" class="row justify-content-center my-4">
+        <div class="col-md-6">
+          <div class="input-group">
+            <input type="text" name="search" class="form-control" placeholder="Cari nama atau keterangan guru..." value="{{ request('search') }}">
+            <button class="btn btn-primary" type="submit">Cari</button>
           </div>
         </div>
-        @endforeach
+      </form>
+
+      <!-- Daftar Guru -->
+      <div class="row mt-4 g-4">
+        @forelse($guru as $guru)
+          <div class="col-lg-3 col-md-4 col-sm-6 col-12" data-aos="zoom-in" data-aos-duration="800">
+            <div class="teacher-card h-100">
+              <img src="{{ asset('storage/' . $guru->gambar) }}" class="teacher-img" alt="{{ $guru->nama }}">
+              <h5 class="teacher-name">{{ $guru->nama }}</h5>
+              <p class="teacher-role">{{ $guru->keterangan }}</p>
+            </div>
+          </div>
+        @empty
+          <div class="col-12">
+            <p class="text-muted">Data tidak ditemukan.</p>
+          </div>
+        @endforelse
       </div>
     </div>
   </section>
 
   @include('viewpublik.layouts.whatsapp')
-  @include('viewpublik/layouts/footer')
+  @include('viewpublik.layouts.footer')
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>

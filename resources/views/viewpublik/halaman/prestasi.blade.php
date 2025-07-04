@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Ekstrakurikuler - SDN 1 Wirasaba</title>
+  <title>Prestasi - SDN 1 Wirasaba</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
@@ -15,7 +15,7 @@
       padding-top: 50px;
     }
 
-    .extracuricullar-card {
+    .prestasi-card {
       background-color: #ffffff;
       border: none;
       border-radius: 12px;
@@ -25,12 +25,12 @@
       height: 100%;
     }
 
-    .extracuricullar-card:hover {
+    .prestasi-card:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
     }
 
-    .extracuricullar-img {
+    .prestasi-img {
       width: 110px;
       height: 110px;
       object-fit: cover;
@@ -60,7 +60,7 @@
     }
 
     @media (max-width: 768px) {
-      .extracuricullar-img {
+      .prestasi-img {
         width: 100px;
         height: 100px;
       }
@@ -82,24 +82,24 @@
   @include('viewpublik/layouts/navbar')
 
   <div class="container text-center py-5">
-    <h2 class="fw-bold animate__animated animate__fadeInUp">Ekstrakurikuler</h2>
+    <h2 class="fw-bold animate__animated animate__fadeInUp">Prestasi</h2>
 
-    <!-- Search Form -->
-    <form method="GET" action="{{ route('ekskul') }}" class="d-flex justify-content-center mt-3 mb-4">
+    <!-- Form Pencarian -->
+    <form method="GET" action="{{ route('prestasi') }}" class="d-flex justify-content-center mt-3 mb-4">
       <div class="input-group" style="max-width: 400px;">
-        <input type="text" name="search" class="form-control" placeholder="Cari Ekstrakurikuler..." value="{{ request('search') }}">
+        <input type="text" name="search" class="form-control" placeholder="Cari prestasi..." value="{{ request('search') }}">
         <button class="btn btn-primary" type="submit">Cari</button>
       </div>
     </form>
 
     <div class="row mt-4 g-4">
-      @forelse($ekstrakurikuler as $item)
+      @forelse($prestasi as $item)
       <div class="col-lg-3 col-md-6 col-sm-12" data-aos="fade-up">
-        <div class="card extracuricullar-card d-flex align-items-center justify-content-center text-center">
-          @if($item->logo)
-          <img src="{{ asset('storage/' . $item->logo) }}" alt="{{ $item->nama }}" class="extracuricullar-img">
+        <div class="card prestasi-card d-flex align-items-center justify-content-center text-center">
+          @if($item->gambar)
+          <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" class="prestasi-img">
           @endif
-          <h5 class="card-title">{{ $item->nama }}</h5>
+          <h5 class="card-title">{{ $item->judul }}</h5>
           <button class="btn btn-outline-info btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#modalDeskripsi{{ $item->id }}">
             Detail
           </button>
@@ -111,18 +111,18 @@
         <div class="modal-dialog modal-dialog-centered modal-lg">
           <div class="modal-content">
             <div class="modal-header border-0">
-              <h5 class="modal-title" id="modalDeskripsiLabel{{ $item->id }}">{{ $item->nama }}</h5>
+              <h5 class="modal-title" id="modalDeskripsiLabel{{ $item->id }}">{{ $item->judul }}</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <div class="modal-body">
               <div class="row align-items-center">
                 <div class="col-md-5 text-center mb-3 mb-md-0">
-                  @if($item->logo)
-                  <img src="{{ asset('storage/' . $item->logo) }}" alt="{{ $item->nama }}" class="img-fluid" style="max-height: 200px; object-fit: cover;">
+                  @if($item->gambar)
+                  <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" class="img-fluid" style="max-height: 200px; object-fit: cover;">
                   @endif
                 </div>
                 <div class="col-md-7 text-start">
-                  <p>{!! $item->deskripsi !!}</p>
+                  <p>{{ $item->deskripsi }}</p>
                 </div>
               </div>
             </div>
@@ -134,7 +134,7 @@
       </div>
       @empty
       <div class="col-12">
-        <p class="text-muted">Data tidak ditemukan.</p>
+        <p class="text-muted">Data prestasi tidak ditemukan.</p>
       </div>
       @endforelse
     </div>

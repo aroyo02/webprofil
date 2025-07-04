@@ -10,11 +10,21 @@ use Illuminate\Http\Request;
 
 class EkstrakurikulerPublikController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $profil = SchoolProfile::first();
-        $ekstrakurikuler = Ekstrakurikuler::all();
-        $kontak = Contact::first(); 
-        return view('viewpublik.halaman.ekstrakurikuler', compact('profil','ekstrakurikuler','kontak'));
+        $kontak = Contact::first();
+
+        $query = Ekstrakurikuler::query();
+
+        if ($request->has('search')) {
+            $search = $request->search;
+            $query->where('nama', 'like', "%$search%")
+                  ->orWhere('deskripsi', 'like', "%$search%");
+        }
+
+        $ekstrakurikuler = $query->paginate(8); // Gunakan paginate agar bisa digunakan dengan links()
+
+        return view('viewpublik.halaman.ekstrakurikuler', compact('profil', 'ekstrakurikuler', 'kontak'));
     }
 }

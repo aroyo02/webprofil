@@ -10,10 +10,10 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 
   <style>
-     body {
-            padding-top: 50px;
-        }
-        
+    body {
+      padding-top: 50px;
+    }
+
     .gallery-title {
       font-weight: 700;
     }
@@ -43,11 +43,13 @@
 
     .masonry-item {
       break-inside: avoid;
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       transition: transform 0.3s ease;
+      background: #fff;
+      padding: 0.5rem;
     }
 
     .masonry-item:hover {
@@ -59,6 +61,12 @@
       width: 100%;
       height: auto;
       display: block;
+      border-radius: 6px;
+    }
+
+    .masonry-item p {
+      margin-top: 0.5rem;
+      font-size: 0.95rem;
     }
 
     .cursor-pointer {
@@ -72,10 +80,18 @@
   @include('viewpublik/layouts/navbar')
 
   <div class="container py-5">
-    <h2 class="text-center gallery-title mb-4 animate__animated animate__fadeInDown" data-aos="fade-down" data-aos-duration="1000">Galeri Sekolah</h2>
+    <h2 class="text-center gallery-title mb-4 animate__animated animate__fadeInDown" data-aos="fade-down" data-aos-duration="1000">Galeri Kegiatan</h2>
+
+    <!-- Form Pencarian -->
+    <form method="GET" action="{{ route('galeri') }}" class="d-flex justify-content-center mb-4">
+      <div class="input-group" style="max-width: 400px;">
+        <input type="text" name="search" class="form-control" placeholder="Cari berdasarkan judul..." value="{{ request('search') }}">
+        <button class="btn btn-primary" type="submit">Cari</button>
+      </div>
+    </form>
 
     <div class="masonry">
-      @foreach($galeris as $galeri)
+      @forelse($galeris as $galeri)
         <div class="masonry-item" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="{{ $loop->index * 100 }}">
           @if($galeri->tipe === 'image')
             <img 
@@ -92,12 +108,20 @@
               Browser tidak mendukung video.
             </video>
           @endif
+
+          @if($galeri->judul)
+            <p class="text-center fw-medium mt-2">{{ $galeri->judul }}</p>
+          @endif
         </div>
-      @endforeach
+      @empty
+        <div class="text-center w-100">
+          <p class="text-muted">Tidak ada hasil ditemukan.</p>
+        </div>
+      @endforelse
     </div>
   </div>
 
-  <!-- Modal Bootstrap -->
+  <!-- Modal Gambar -->
   <div class="modal fade" id="modalImage" tabindex="-1" aria-labelledby="modalImageLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
@@ -111,14 +135,13 @@
   @include('viewpublik.layouts.whatsapp')
   @include('viewpublik/layouts/footer')
 
-  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
     AOS.init({
-      once: true,              // hanya animasi pertama kali
-      duration: 800,           // durasi default animasi
-      easing: 'ease-in-out',   // efek animasi halus
+      once: true,
+      duration: 800,
+      easing: 'ease-in-out',
     });
 
     document.addEventListener('DOMContentLoaded', function () {

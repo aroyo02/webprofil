@@ -44,13 +44,14 @@ class BeritaController extends Controller
             $berita->save();
         }
 
-        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil ditambahkan');
+        return redirect()->route('admin.berita.create')->with('success', 'Berita berhasil ditambahkan');
     }
 
     public function show($id)
     {
+        $profilSekolah = SchoolProfile::first();
         $berita = Berita::findOrFail($id);
-        return view('admin.berita.show', compact('berita'));
+        return view('admin.berita.show', compact('profilSekolah','berita'));
     }
 
     public function update(Request $request, $id)

@@ -4,17 +4,6 @@
 <div class="container mt-4">
     <h2>Profil Sekolah</h2>
 
-    {{-- Notifikasi --}}
-    @if (session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @elseif (session('updated'))
-        <div class="alert alert-success">{{ session('updated') }}</div>
-    @elseif (session('deleted'))
-        <div class="alert alert-warning">{{ session('deleted') }}</div>
-    @elseif (session('error'))
-        <div class="alert alert-danger">{{ session('error') }}</div>
-    @endif
-
     {{-- Validasi --}}
     @if ($errors->any())
         <div class="alert alert-danger">
@@ -60,10 +49,25 @@
             @endif
         </div>
 
+        {{-- Foto Kepala Sekolah --}}
+        <div class="mb-3">
+            <label for="foto_kepala_sekolah" class="form-label">Foto Kepala Sekolah</label>
+            <input type="file" name="foto_kepala_sekolah" class="form-control">
+            @if(!empty($profilSekolah->foto_kepala_sekolah))
+                <img src="{{ asset('storage/' . $profilSekolah->foto_kepala_sekolah) }}" alt="Foto Kepala Sekolah" height="80" class="mt-2">
+            @endif
+        </div>
+
         {{-- Motto --}}
         <div class="mb-3">
             <label for="motto" class="form-label">Motto / Slogan</label>
             <input type="text" name="motto" class="form-control" value="{{ old('motto', $profilSekolah->motto ?? '') }}">
+        </div>
+
+        {{-- Sambutan Kepala Sekolah --}}
+        <div class="mb-3">
+            <label for="sambutan_kepsek" class="form-label">Sambutan Kepala Sekolah</label>
+            <textarea name="sambutan_kepsek" id="sambutan_kepsek" rows="6" class="form-control">{{ old('sambutan_kepsek', $profilSekolah->sambutan_kepsek ?? '') }}</textarea>
         </div>
 
         {{-- Isi Profil --}}
@@ -75,7 +79,7 @@
         {{-- Tombol --}}
         @php
             $hasData = $profilSekolah &&
-                ($profilSekolah->logo || $profilSekolah->banner || $profilSekolah->foto_profil || $profilSekolah->motto || $profilSekolah->content);
+                ($profilSekolah->logo || $profilSekolah->banner || $profilSekolah->foto_profil || $profilSekolah->foto_kepala_sekolah || $profilSekolah->motto || $profilSekolah->content || $profilSekolah->sambutan_kepsek);
         @endphp
 
         <button type="submit" class="btn btn-{{ $hasData ? 'primary' : 'success' }}">
@@ -84,22 +88,8 @@
     </form>
 </div>
 
-{{-- Validasi JS --}}
-<script>
-    document.getElementById('profilForm').addEventListener('submit', function(e) {
-        const content = document.getElementById('content').value.trim();
-        if (content === '') {
-            e.preventDefault();
-            alert('Harap isi profil sekolah terlebih dahulu.');
-        }
-    });
-</script>
 
-{{-- Summernote --}}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.css" rel="stylesheet">
-
+@push('scripts')
 <script>
     $(document).ready(function() {
         $('#content').summernote({
@@ -113,9 +103,25 @@
                 ['color', ['color']],
                 ['para', ['ul', 'ol', 'paragraph']],
                 ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview']]
+                ['view', ['fullscreen']]
+            ]
+        });
+
+        $('#sambutan_kepsek').summernote({
+            height: 300,
+            placeholder: 'Tulis sambutan kepala sekolah di sini...',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['insert', ['link']],
+                ['view', ['fullscreen']]
             ]
         });
     });
 </script>
+@endpush
 @endsection
