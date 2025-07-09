@@ -63,22 +63,6 @@
             word-break: break-word;
         }
 
-        .transisi {
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            width: 100%;
-            z-index: 2;
-        }
-
-        .transisi img {
-            margin-bottom: -68px;
-            display: block;
-            width: 100%;
-            height: auto;
-            position: relative;
-        }
-
         .profil-img {
             max-height: 400px;
             object-fit: cover;
@@ -153,11 +137,11 @@
         color: #ffc107;
     }
 
-    #beritaScroll {
-    scroll-behavior: smooth;
-    overflow-x: auto;
-    white-space: nowrap;
-}
+        #beritaScroll {
+        scroll-behavior: smooth;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
 
 
     </style>
@@ -177,10 +161,6 @@
         </p>
     </div>
 </section>
-
-<div class="transisi">
-    <img src="{{ asset('gambar/transisi.png') }}" class="img-fluid w-100">
-</div>
 
 <!-- Profil Sekolah -->
 <section class="py-5 bg-white animate__animated animate__fadeInUp">
@@ -248,18 +228,18 @@
     </section>
 
 
-    <!-- Informasi Lainnya -->
-    <section class="informasi-section">
+<!-- Informasi Lainnya -->
+<section class="informasi-section">
     <div class="overlay">
-    <div class="container text-center">
-        <h3 class="fw-bold animate__animated animate__fadeInUp" style="padding-bottom: 50px;">Informasi Lainnya</h3>
-        <div class="row g-4 justify-content-center">
+        <div class="container text-center">
+            <h3 class="fw-bold animate__animated animate__fadeInUp mb-5">Informasi Lainnya</h3>
 
-                <!-- Visi Misi -->
-                <div class="col-lg-4 col-md-6 col-12">
+            <div class="row g-4 justify-content-center">
+
+                <!-- Baris 1 -->
+                <div class="col-lg-3 col-md-6 col-12">
                     <div class="card h-100 p-3 shadow-sm informasi-card">
-                        <img src="https://img.icons8.com/color/96/goal.png" class="card-img-top mx-auto"
-                            style="width:60px" alt="Visi Misi">
+                        <img src="https://img.icons8.com/color/96/goal.png" class="card-img-top mx-auto" style="width:60px" alt="Visi Misi">
                         <div class="card-body">
                             <h6 class="card-title">Visi Misi</h6>
                             <a href="{{ route('visimisi') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
@@ -267,11 +247,9 @@
                     </div>
                 </div>
 
-                <!-- Daftar Guru -->
-                <div class="col-lg-4 col-md-6 col-12">
+                <div class="col-lg-3 col-md-6 col-12">
                     <div class="card h-100 p-3 shadow-sm informasi-card">
-                        <img src="https://img.icons8.com/color/96/teacher.png" class="card-img-top mx-auto"
-                            style="width:60px" alt="Daftar Guru">
+                        <img src="https://img.icons8.com/color/96/teacher.png" class="card-img-top mx-auto" style="width:60px" alt="Daftar Guru">
                         <div class="card-body">
                             <h6 class="card-title">Daftar Guru</h6>
                             <a href="{{ route('daftarguru') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
@@ -279,11 +257,9 @@
                     </div>
                 </div>
 
-                <!-- Struktur Organisasi -->
-                <div class="col-lg-4 col-md-6 col-12">
+                <div class="col-lg-3 col-md-6 col-12">
                     <div class="card h-100 p-3 shadow-sm informasi-card">
-                        <img src="https://img.icons8.com/color/96/organization.png" class="card-img-top mx-auto"
-                            style="width:60px" alt="Struktur Organisasi">
+                        <img src="https://img.icons8.com/color/96/organization.png" class="card-img-top mx-auto" style="width:60px" alt="Struktur Organisasi">
                         <div class="card-body">
                             <h6 class="card-title">Struktur Organisasi</h6>
                             <a href="{{ route('strukturorganisasi') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
@@ -291,11 +267,9 @@
                     </div>
                 </div>
 
-                <!-- Ekstrakurikuler -->
-                <div class="col-lg-4 col-md-6 col-12">
+                <div class="col-lg-3 col-md-6 col-12">
                     <div class="card h-100 p-3 shadow-sm informasi-card">
-                        <img src="https://img.icons8.com/color/96/basketball.png" class="card-img-top mx-auto"
-                            style="width:60px" alt="Ekstrakurikuler">
+                        <img src="https://img.icons8.com/color/96/basketball.png" class="card-img-top mx-auto" style="width:60px" alt="Ekstrakurikuler">
                         <div class="card-body">
                             <h6 class="card-title">Ekstrakurikuler</h6>
                             <a href="{{ route('ekskul') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
@@ -303,34 +277,52 @@
                     </div>
                 </div>
 
-                <!-- Sarpras -->
-                <div class="col-lg-4 col-md-6 col-12">
+                <!-- Baris 2 -->
+                <div class="col-lg-3 col-md-6 col-12">
                     <div class="card h-100 p-3 shadow-sm informasi-card">
-                        <img src="https://img.icons8.com/color/96/school-building.png" class="card-img-top mx-auto"
-                            style="width:60px" alt="Sarpras">
+                        <img src="https://img.icons8.com/color/96/school-building.png" class="card-img-top mx-auto" style="width:60px" alt="Sarpras">
                         <div class="card-body">
-                            <h6 class="card-title">Sarpras</h6>
+                            <h6 class="card-title">Sarana Prasarana</h6>
                             <a href="{{ route('sarpras') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Galeri -->
-                <div class="col-lg-4 col-md-6 col-12">
+                 <div class="col-lg-3 col-md-6 col-12">
                     <div class="card h-100 p-3 shadow-sm informasi-card">
-                        <img src="https://img.icons8.com/color/96/image-gallery.png" class="card-img-top mx-auto"
-                            style="width:60px" alt="Galeri">
+                        <img src="https://img.icons8.com/color/96/trophy.png" class="card-img-top mx-auto" style="width:60px" alt="Prestasi">
                         <div class="card-body">
-                            <h6 class="card-title">Galeri</h6>
+                            <h6 class="card-title">Prestasi</h6>
+                            <a href="{{ route('prestasi') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card h-100 p-3 shadow-sm informasi-card">
+                        <img src="https://img.icons8.com/color/96/image-gallery.png" class="card-img-top mx-auto" style="width:60px" alt="Galeri">
+                        <div class="card-body">
+                            <h6 class="card-title">Galeri Kegiatan</h6>
                             <a href="{{ route('galeri') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
                         </div>
                     </div>
                 </div>
 
+                <div class="col-lg-3 col-md-6 col-12">
+                    <div class="card h-100 p-3 shadow-sm informasi-card">
+                        <img src="https://img.icons8.com/color/96/books.png" class="card-img-top mx-auto" style="width:60px" alt="Galeri Pustaka">
+                        <div class="card-body">
+                            <h6 class="card-title">Galeri Pustaka</h6>
+                            <a href="{{ route('galeripustakapublik') }}" class="btn btn-sm btn-primary mt-2">Selengkapnya</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </div>
-    </div>
-    </section>
+</section>
+
 
     <!-- Berita -->
 <section class="py-5 bg-light position-relative" id="berita">

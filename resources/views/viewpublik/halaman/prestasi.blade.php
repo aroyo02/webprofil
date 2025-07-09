@@ -114,17 +114,13 @@
               <h5 class="modal-title" id="modalDeskripsiLabel{{ $item->id }}">{{ $item->judul }}</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
-            <div class="modal-body">
-              <div class="row align-items-center">
-                <div class="col-md-5 text-center mb-3 mb-md-0">
+            <div class="modal-body text-center">
                   @if($item->gambar)
                   <img src="{{ asset('storage/' . $item->gambar) }}" alt="{{ $item->judul }}" class="img-fluid" style="max-height: 200px; object-fit: cover;">
                   @endif
+                <div class="text-start">
+                  <p>{!! $item->deskripsi !!}</p>
                 </div>
-                <div class="col-md-7 text-start">
-                  <p>{{ $item->deskripsi }}</p>
-                </div>
-              </div>
             </div>
             <div class="modal-footer border-0">
               <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Tutup</button>
