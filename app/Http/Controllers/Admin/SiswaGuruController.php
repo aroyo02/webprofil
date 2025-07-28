@@ -30,7 +30,7 @@ class SiswaGuruController extends Controller
 
         if ($siswa) {
             $siswa->update(['jumlah_siswa' => $request->jumlah_siswa]);
-            if ($isSimpanSemua) return; // tidak redirect, lanjut ke form guru
+            if ($isSimpanSemua) return response()->noContent();
             return redirect()->route('admin.siswaguru.index')->with('updated', 'Jumlah siswa berhasil diupdate');
         } else {
             Siswa::create(['jumlah_siswa' => $request->jumlah_siswa]);
